@@ -11,7 +11,7 @@ public class api extends Model {
     public String api;
     public String data;
 
-    public User(String api, String password, String data) {
+    public api(String api, String data) {
         this.api = api;
         this.data = data;
     }

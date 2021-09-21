@@ -11,7 +11,7 @@ public class relationship extends Model {
     public String api;
     public int user;
 
-    public User(String api, int user) {
+    public relationship(String api, int user) {
         this.api = api;
         this.user = user;
     }

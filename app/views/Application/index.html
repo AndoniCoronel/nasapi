@@ -1,4 +1,12 @@
 #{extends 'main.html' /}
 #{set title:'Home' /}
 
-#{welcome /}
+<div class="formulario">
+    <form method="get" action="@{Application.login()}">
+            <button type="submit">login</button>
+    </form>
+    <form method="get" action="@{Application.signup()}">
+        <button type="submit">Sign Up</button>
+    </form>
+</div>
+

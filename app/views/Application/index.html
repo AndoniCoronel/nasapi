@@ -1,6 +1,11 @@
 #{extends 'main.html' /}
 #{set title:'Home' /}
 
+#{if flash.error}
+<p style="color:#c00">
+    ${flash.error}
+</p>
+#{/if}
 <div class="formulario">
     <form method="get" action="@{Application.login()}">
             <button type="submit">login</button>

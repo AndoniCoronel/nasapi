@@ -2,12 +2,18 @@
 #{set title:'Login' /}
 
 
-<form action="action_page.php" method="post" class="login">
+<form action=@{Application.start()} method="get" class="login">
     <div >
         <label for="uname"><b>Username</b></label>
         <input placeholder="Enter Username" name="uname" required>
         <label for="psw"><b>Password</b></label>
-        <input placeholder="Enter Password" name="psw" required>
+        <input type="password" placeholder="Enter Password" name="psw" required>
+        #{if flash.error}
+        <p style="color:#c00">
+            ${flash.error}
+        </p>
+        <a href="@{Application.signup()}">Sing Up</a>
+        #{/if}
         <button type="submit">Login</button>
     </div>
 </form>

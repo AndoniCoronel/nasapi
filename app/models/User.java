@@ -1,10 +1,10 @@
 package models;
 
-import java.util.*;
-import java.util.prefs.AbstractPreferences;
-import javax.persistence.*;
-
 import play.db.jpa.*;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class User extends Model {
@@ -12,7 +12,7 @@ public class User extends Model {
     //properties
     public String name;
     public String password;
-    public int profilePic;
+    public String profilePic;
     public int age;
 
 
@@ -26,8 +26,10 @@ public class User extends Model {
 
 
 
-    public User(String name, String password) {
+    public User(String name, String password, String profilePic, int age) {
         this.name = name;
         this.password = password;
+        this.profilePic = profilePic;
+        this.age = age;
     }
 }

@@ -1,14 +1,15 @@
 #{extends 'main.html' /}
 #{set title:'SignUp' /}
 
-<form action="action_page.php" method="post" class="signup">
+
+<form action=@{Application.registered()} method="get" class="reg">
     <div >
         <label for="uname"><b>Username</b></label>
         <input placeholder="Enter Username" name="uname" required>
         <label for="psw"><b>Password</b></label>
-        <input placeholder="Enter Password" name="psw" required>
+        <input type="password" placeholder="Enter Password" name="psw" required>
         <label for="psw"><b>Age</b></label>
-        <input placeholder="Enter Age" name="psw" required>
+        <input type="number" placeholder="Enter Age" name="age" required>
         <label for="profilePic"><b>Profile Picture</b></label>
         <select name="dexter" id="dexters">
             <option value="dexter1">Happy Dog</option>
@@ -16,6 +17,11 @@
             <option value="dexter3">Funky Dog</option>
             <option value="dexter4">Spa Dog</option>
         </select>
+        #{if flash.error}
+        <p style="color:#c00">
+            ${flash.error}
+        </p>
+        #{/if}
         <button type="submit">Sign Up</button>
     </div>
 </form>

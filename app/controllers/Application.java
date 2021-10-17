@@ -12,8 +12,10 @@ import javax.persistence.*;
 
 public class Application extends Controller {
 
-    public static void index() {render();}
-
+    public static void index() {
+        generateDB();
+        render();
+        }
 
     public static void login() {
         render();
@@ -50,6 +52,16 @@ public class Application extends Controller {
             flash.error("User does not exists");
             login();
         }
+    }
+    private static void generateDB(){
+        User a = new User("Dexter","1234", "dexter1",6);
+        a.save();
+        User b = new User("a","a", "dexter2",1);
+        b.save();
+        new Donation(100,2,a).save();
+        new Donation(150,3,a).save();
+        new Donation(15,1,b).save();
+        new Api(1,"blabla").save();
     }
 
 }

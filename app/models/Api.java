@@ -9,7 +9,7 @@ import play.db.jpa.*;
 public class Api extends Model {
 
     //properties
-    public String api;
+    public int api;
     public String data;
 
     //relations
@@ -20,7 +20,7 @@ public class Api extends Model {
     public List<User> users = new ArrayList<>();
 
 
-    public Api(String api, String data) {
+    public Api(int api, String data) {
         this.api = api;
         this.data = data;
     }

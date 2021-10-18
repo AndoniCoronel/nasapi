@@ -6,7 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="7bea3fd2-6ef9-41e9-a329-80d0de686838" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/app/controllers/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/Application.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/models/Api.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/Api.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nasapi.iml" beforeDir="false" afterPath="$PROJECT_DIR$/nasapi.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nasapi.ipr" beforeDir="false" afterPath="$PROJECT_DIR$/nasapi.ipr" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nasapi.iws" beforeDir="false" afterPath="$PROJECT_DIR$/nasapi.iws" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -52,12 +53,12 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../framework/play-1.5.3.jar" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Project" />
-    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="com.maddyhome.idea.vim.ui.VimEmulationConfigurable" />
+    <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -75,6 +76,8 @@
       <updated>1632246465189</updated>
       <workItem from="1632993070406" duration="972000" />
       <workItem from="1632994068146" duration="5743000" />
+      <workItem from="1634555838315" duration="257000" />
+      <workItem from="1634556239641" duration="600000" />
     </task>
     <servers />
   </component>

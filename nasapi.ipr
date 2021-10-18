@@ -140,7 +140,7 @@
       <module fileurl="file://$PROJECT_DIR$/nasapi.iml" filepath="$PROJECT_DIR$/nasapi.iml" />
     </modules>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="1.6" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/tmp/classes" />
   </component>
   <component name="RunConfigurationProducerService">
@@ -152,5 +152,23 @@
   </component>
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+  </component>
+  <component name="libraryTable">
+    <library name="lib">
+      <CLASSES>
+        <root url="file://$PROJECT_DIR$/../framework/lib" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES />
+      <jarDirectory url="file://$PROJECT_DIR$/../framework/lib" recursive="false" />
+    </library>
+    <library name="play">
+      <CLASSES>
+        <root url="file://$PROJECT_DIR$/../framework/lib" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES />
+      <jarDirectory url="file://$PROJECT_DIR$/../framework/lib" recursive="false" />
+    </library>
   </component>
 </project>

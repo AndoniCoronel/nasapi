@@ -8,7 +8,6 @@ import java.util.*;
 
 import models.*;
 
-import javax.persistence.*;
 
 public class Application extends Controller {
 
@@ -36,6 +35,7 @@ public class Application extends Controller {
             index();
         }
     }
+
     public static void start(String uname, String psw){
         User u = User.find("byName",uname).first();
         if (u != null) {
@@ -53,6 +53,7 @@ public class Application extends Controller {
             login();
         }
     }
+
     private static void generateDB(){
         User a = new User("Dexter","1234", "dexter1",6);
         a.save();
@@ -63,5 +64,6 @@ public class Application extends Controller {
         new Donation(15,1,b).save();
         new Api(1,"blabla").save();
     }
+
 
 }

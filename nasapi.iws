@@ -4,15 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7bea3fd2-6ef9-41e9-a329-80d0de686838" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/app/controllers/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/Application.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/models/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/views/Application/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/Application/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/views/Application/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/Application/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/views/Application/signup.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/Application/signup.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/conf/routes" beforeDir="false" afterPath="$PROJECT_DIR$/conf/routes" afterDir="false" />
+    <list default="true" id="7bea3fd2-6ef9-41e9-a329-80d0de686838" name="Changes" comment="minor changes">
       <change beforePath="$PROJECT_DIR$/nasapi.iws" beforeDir="false" afterPath="$PROJECT_DIR$/nasapi.iws" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/stylesheets/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/stylesheets/main.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,7 +50,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/nasapi.ipr" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
@@ -82,7 +75,17 @@
       <workItem from="1632994068146" duration="5743000" />
       <workItem from="1633345762349" duration="1872000" />
       <workItem from="1634124488276" duration="34000" />
+      <workItem from="1634489244201" duration="368000" />
+      <workItem from="1634551303441" duration="698000" />
     </task>
+    <task id="LOCAL-00001" summary="minor changes">
+      <created>1634489396958</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1634489396958</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -99,5 +102,9 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="minor changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="minor changes" />
   </component>
 </project>

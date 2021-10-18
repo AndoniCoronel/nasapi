@@ -154,7 +154,7 @@
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
   </component>
   <component name="libraryTable">
-    <library name="lib">
+    <library name="PlayFramework Dependencies">
       <CLASSES>
         <root url="file://$PROJECT_DIR$/../framework/lib" />
       </CLASSES>

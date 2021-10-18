@@ -36,5 +36,6 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="PlayFramework Dependencies" level="project" />
   </component>
 </module>

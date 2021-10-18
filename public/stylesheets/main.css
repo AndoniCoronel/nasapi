@@ -6,6 +6,7 @@ button {
     border: none;
     cursor: pointer;
     width: 100%;
+    font-family: "Helvetica";
 }
 button:hover {
     opacity: 0.8;
@@ -15,10 +16,16 @@ html,body {
     width:100%;
     margin:0;
 }
+label{
+    font-family: "Helvetica";
+}
+input::placeholder  {
+    font-family: "Helvetica";
+}
+
 body {
     background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: 100% 100%;
+    background-size:cover;
     display:flex;
 }
 .formulario {

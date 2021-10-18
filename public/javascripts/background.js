@@ -19,4 +19,3 @@ function nasaRequest(){
     xmlhttp.open("GET", urlPetition, true);
     xmlhttp.send();
 }
-nasaRequest().onload;

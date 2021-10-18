@@ -12,7 +12,6 @@ import models.*;
 public class Application extends Controller {
 
     public static void index() {
-        generateDB();
         render();
         }
 
@@ -53,6 +52,7 @@ public class Application extends Controller {
             login();
         }
     }
+<<<<<<< HEAD
 
     private static void generateDB(){
         User a = new User("Dexter","1234", "dexter1",6);
@@ -66,4 +66,6 @@ public class Application extends Controller {
     }
 
 
+=======
+>>>>>>> main
 }

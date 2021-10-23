@@ -17,11 +17,11 @@ public class User extends Model {
 
 
     //relations
-    @OneToMany (mappedBy= "user")
+    @OneToMany (mappedBy= "user", cascade=CascadeType.ALL)
     public List<Donation> donations = new ArrayList<>();
-    @ManyToMany (mappedBy = "users")
+    @ManyToMany (mappedBy = "users", cascade=CascadeType.ALL)
     public List<Picture> pictures = new ArrayList<>();
-    @ManyToMany (mappedBy = "users")
+    @ManyToMany (mappedBy = "users", cascade=CascadeType.ALL)
     public List<Api> apis = new ArrayList<>();
 
 

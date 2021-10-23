@@ -2,6 +2,7 @@ package models;
 
 import play.db.jpa.Model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
@@ -14,7 +15,7 @@ public class Picture extends Model {
 
     public Date date;
 
-    @ManyToMany
+    @ManyToMany(cascade= CascadeType.ALL)
     public List<User> users = new ArrayList<>();
 
     public Picture(Date date) {

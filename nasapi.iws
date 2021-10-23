@@ -5,6 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7bea3fd2-6ef9-41e9-a329-80d0de686838" name="Changes" comment="minor changes">
+      <change beforePath="$PROJECT_DIR$/app/controllers/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/Application.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models/Api.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/Api.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models/Donation.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/Donation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models/Picture.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/Picture.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/Application/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/Application/login.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nasapi.iws" beforeDir="false" afterPath="$PROJECT_DIR$/nasapi.iws" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -77,6 +83,7 @@
       <workItem from="1634124488276" duration="34000" />
       <workItem from="1634489244201" duration="368000" />
       <workItem from="1634551303441" duration="698000" />
+      <workItem from="1635013707260" duration="3184000" />
     </task>
     <task id="LOCAL-00001" summary="minor changes">
       <created>1634489396958</created>

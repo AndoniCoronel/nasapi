@@ -13,10 +13,10 @@ public class Api extends Model {
     public String data;
 
     //relations
-    @OneToMany
+    @OneToMany(cascade= CascadeType.ALL)
     public List<Donation> donations = new ArrayList<>();
 
-    @ManyToMany
+    @ManyToMany(cascade= CascadeType.ALL)
     public List<User> users = new ArrayList<>();
 
 

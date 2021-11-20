@@ -48,3 +48,8 @@ input{
     background-color: rgba(255,255,255, 0.8);
 
 }
+
+.error{
+    color: red;
+    font-family: "Helvetica";
+}

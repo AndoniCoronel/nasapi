@@ -1,6 +1,9 @@
 package controllers;
 
+import com.google.gson.JsonObject;
 import play.*;
+import play.data.binding.As;
+import play.data.validation.Valid;
 import play.db.jpa.JPA;
 import play.mvc.*;
 
@@ -26,16 +29,17 @@ public class Application extends Controller {
         render();
     }
 
-    public static void registered(String uname, String psw, int age, String dexter){
-        User u = User.find("byName",uname).first();
-        if (u != null) {
-            flash.error("User already exists");
-            signup();
+    public static void registered(@Valid User user, String verifyPassword){
+        //validation.required(user.name);
+        validation.required(verifyPassword);
+        validation.equals(verifyPassword, user.password).message("Your password doesn't match");
+        if(validation.hasErrors()) {
+            render("@signup", user, verifyPassword);
         }
-        else {
-            new User(uname,psw, dexter,age).save();
-            index();
-        }
+        user.create();
+        session.put("user", user.name);
+        flash.success("Welcome, " + user.name);
+        index();
     }
     public static void start(String uname, String psw, boolean unregister){
         User u = User.find("byName",uname).first();
@@ -63,6 +67,10 @@ public class Application extends Controller {
     public static void editPassword(String uname, String psw, String newPsw){
         //http://localhost:9000/Application/editPassword?uname=a&psw=a&newPsw=aaa
         User u = User.find("byName",uname).first();
+        List<User> users = new ArrayList<>();
+        for (User user:users ) {
+
+        }
         if (u != null) {
             if (u.password.equals(psw))
             {
@@ -95,14 +103,13 @@ public class Application extends Controller {
 
     }
 
-    public static void addPicture(String uname,String pictureDateString) throws ParseException {
-        //http://localhost:9000/Application/addPicture?uname=a&pictureDateString=12/12/2000
-        Date date = new SimpleDateFormat("dd/MM/yyyy").parse(pictureDateString);
-        Picture pic = Picture.find("byDate",date).first();
+    public static void addPicture(String uname,@As("dd/MM/yyyy") Date pictureDate) throws ParseException {
+        //http://localhost:9000/Application/addPicture?uname=a&pictureDate=12/12/2000
+        Picture pic = Picture.find("byDate",pictureDate).first();
         User user = User.find("byName",uname).first();
         if (user != null) {
             if(pic==null){
-                pic = new Picture(date);
+                pic = new Picture(pictureDate);
             }
             if(!user.pictures.contains(pic)) {
                 pic.users.add(user);
@@ -117,6 +124,35 @@ public class Application extends Controller {
         }
 
     }
+
+    //Android functions
+    public void androidLogin(String uname, String psw){
+        User u = User.find("byName",uname).first();
+        JsonObject jsonObject = new JsonObject();
+        if (u != null) {
+            if (u.password.equals(psw))
+            {
+                jsonObject.addProperty("login",true);
+                renderJSON(jsonObject);
+            }
+            else{
+                jsonObject.addProperty("login",false);
+                renderJSON(jsonObject);
+            }
+        }
+        else {
+            jsonObject.addProperty("login",false);
+            renderJSON(jsonObject);
+        }
+    }
+
+
+    //Test functions
+    public void getSomething(){
+        renderJSON("{\"phonetype\":\"N95\"}");
+    }
+
+
 
 
 }

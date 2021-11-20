@@ -1,27 +1,52 @@
 #{extends 'main.html' /}
 #{set title:'SignUp' /}
 
+<div class="signup">
+#{form @registered()}
+    #{field 'user.name'}
+    <p class="${field.errorClass}">
+        <label>Real name:</label>
+        <input type="text" name="${field.name}" size="16" value="${user?.name}">
+        <span class="error">${field.error}</span>
+    </p>
+    #{/field}
 
-<form action=@{Application.registered()} method="get" class="signup">
-    <div >
-        <label for="uname"><b>Username</b></label>
-        <input placeholder="Enter Username" name="uname" required>
-        <label for="psw"><b>Password</b></label>
-        <input type="password" placeholder="Enter Password" name="psw" required>
-        <label for="psw"><b>Age</b></label>
-        <input type="number" placeholder="Enter Age" name="age" required>
-        <label for="profilePic"><b>Profile Picture</b></label>
-        <select name="dexter" id="dexters">
+    #{field 'user.password'}
+    <p class="${field.errorClass}">
+        <label>Password:</label>
+        <input type="password" name="${field.name}" size="16" value="${user?.password}">
+        <span class="error">${field.error}</span>
+    </p>
+    #{/field}
+
+    #{field 'verifyPassword'}
+    <p class="${field.errorClass}">
+        <label>Verify password:</label>
+        <input type="password" name="${field.name}" size="16" value="${verifyPassword}">
+        <span class="error">${field.error}</span>
+    </p>
+    #{/field}
+
+    #{field 'user.age'}
+    <p class="${field.errorClass}">
+        <label>Age:</label>
+        <input type="text" name="${field.name}" size="16" value="${user?.age}">
+        <span class="error">${field.error}</span>
+    </p>
+    #{/field}
+    #{field 'user.profilePic'}
+    <p class="${field.errorClass}">
+        <select name="${field.name}" id="dexters">
             <option value="dexter1">Happy Dog</option>
             <option value="dexter2">Tired Dog</option>
             <option value="dexter3">Funky Dog</option>
             <option value="dexter4">Spa Dog</option>
         </select>
-        #{if flash.error}
-        <p style="color:#c00">
-            ${flash.error}
-        </p>
-        #{/if}
-        <button type="submit">Sign Up</button>
-    </div>
-</form>
+        <span class="error">${field.error}</span>
+    </p>
+    #{/field}
+<p class="buttons">
+    <input type="submit" value="Register"> <a href="@{index()}">Cancel</a>
+</p>
+#{/form}
+</div>

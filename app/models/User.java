@@ -1,5 +1,6 @@
 package models;
 
+import play.data.validation.*;
 import play.db.jpa.*;
 
 import javax.persistence.*;
@@ -10,10 +11,25 @@ import java.util.List;
 public class User extends Model {
 
     //properties
+    @Required
+    @MaxSize(15)
+    @MinSize(4)
+    @Match(value="^\\w*$", message="Not a valid username")
     public String name;
+
+    @Required
+    @MaxSize(15)
+    @MinSize(5)
     public String password;
     public String profilePic;
+
+    @Required
+    @MaxSize(3)
+    @MinSize(1)
+    @Match(value = "^[1-9]{1}[0-9]*$", message = "invalid age, don't be a troll :) ")
     public int age;
+
+    //profile level
 
 
     //relations

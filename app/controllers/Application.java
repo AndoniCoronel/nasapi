@@ -146,6 +146,31 @@ public class Application extends Controller {
         }
     }
 
+    //Android functions
+    public void andriodRegister(String name, String password,String verifyPassword, int age, String dexter ){
+        JsonObject jsonObject = new JsonObject();
+        User u = User.find("byName",uname).first();
+        //Check if user already exists
+        if(u==null){
+            //Check that the passwords match
+            if(password==verifyPassword){
+                User u = new User(name, password, dexter, age);
+                u.save();
+                jsonObject.addProperty("register",true);
+                renderJSON(jsonObject);
+            } else{
+                jsonObject.addProperty("register",false);
+                jsonObject.addProperty("error", "Passwords don't match")
+                renderJSON(jsonObject);
+            } 
+        } else {
+                jsonObject.addProperty("register",false);
+                jsonObject.addProperty("error", "User already exists")
+                renderJSON(jsonObject);
+        }
+    }
+
+
 
     //Test functions
     public void getSomething(){

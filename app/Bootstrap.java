@@ -1,3 +1,5 @@
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import play.jobs.*;
 import models.*;
 
@@ -10,7 +12,7 @@ import java.util.Date;
 @OnApplicationStart
 public class Bootstrap extends Job {
 
-    public void doJob() {
+    public void doJob() throws IOException {
         // Load default data if the database is empty
         if(User.count() == 0) {
             User a = new User("Dexter","1234", "dexter1",6);

@@ -1,8 +1,68 @@
-#{extends 'main.html' /}
-#{set title:'Login' /}
+#{extends 'mainStart.html' /}
+#{set title:'Start' /}
 
-<h1  style="color:MediumSeaGreen;">Session started, welcome ${user.name}</h1><br>
 
-<a href="@{Settings.index()}">Settings</a>
-<a href="@{controllers.ViewGallery.index()}">Gallery</a>
+<div class="section">
+    <div class="container2">
+        <a class="nothing" href="@{Application.api1()}">
+            <div class="card">
 
+                <div class="card-header">
+                    <img src="@{'/public/images/InsightRover.jpg'}" alt="rover" />
+                </div>
+                <div class="card-body">
+                    <h3>INSIGHT</h3>
+                    <p>
+                        Weather on Mars. NASA’s InSight Mars lander takes continuous weather measurements
+                        (temperature, wind,
+                        pressure) on the surface of Mars at Elysium Planitia, a flat, smooth plain near Mars’
+                        equator.
+                    </p>
+                </div>
+            </div>
+        </a>
+        <div class="card">
+            <div class="card-header">
+                <img src="@{'/public/images/Satellite.jpg'}" alt="satellite" />
+            </div>
+            <div class="card-body">
+                <h3>
+                    Satellite Situation Center
+                </h3>
+                <p>
+                    The SSC casts geocentric spacecraft location information into a framework of (empirical)
+                    geophysical regions and mappings of spacecraft locations along lines of the Earth's magnetic
+                    field.
+                </p>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <img src="@{'/public/images/Sun.png'}" alt="sun" />
+            </div>
+            <div class="card-body">
+                <h3>
+                    Solar Flares
+                </h3>
+                <p>
+                    Space weather forcast, with daily interpretations of space weather observations, analysis,
+                    models, forecasts, and
+                    notifications provided by the Space Weather Research Center (SWRC).
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="section">
+
+    <div class="footer">
+        <h4>Download image of the day</h4>
+        <form method="get" action="@{Application.imageOfTheDay()}">
+            <button class="btn"><i class="fa fa-download"></i> Download</button>
+        </form>
+        <p>Save the background image to your own personal library, saved to My
+            Photos</p>
+
+    </div>
+
+</div>

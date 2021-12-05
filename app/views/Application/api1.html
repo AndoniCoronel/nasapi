@@ -1,0 +1,18 @@
+#{extends 'mainStart.html' /}
+#{set title:'Api 1' /}
+
+
+
+<script src="@{'/public/javascripts/api1.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+
+<div id="api1content"> HI</div>
+<div class="section">
+    <div class="footer">
+        <h4>Download data of the day</h4>
+        <form method="get" action="@{Application.dataApi1()}">
+            <button class="btn"><i class="fa fa-download"></i> Download</button>
+        </form>
+        <p>Save the data and come view it another time at My Data</p>
+    </div>
+
+</div>

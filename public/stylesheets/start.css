@@ -1,0 +1,153 @@
+
+.container {
+    width: 100%;
+}
+
+.section {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    align-items: stretch;
+    width: 100%;
+     margin: 20px;
+ }
+
+.footer {
+    margin: 10px;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.596);
+    border-radius: 10px;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    width: 300px;
+    text-align: center;
+  }
+
+
+.header {
+    padding: 10px 20px;
+    text-align: center;
+}
+.header h1 {
+    font-size: 24px;
+    color: white;
+}
+
+
+.topnav {
+    display: flex;
+    justify-content: center;
+    align-items:  center;
+    overflow: hidden;
+    background-color: #333;
+  }
+  
+  .topnav a {
+    color: #f2f2f2;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+  }
+  
+  .topnav a:hover {
+    background-color: rgba(255,255,255, 0.8);
+    color: black;
+  }
+  
+  .topnav a.active {
+    background-color: #0b3d91;
+    color: white;
+  }
+
+  .api {
+    background-color: rgba(255,255,255, 0.8);
+    border-radius: 5%;
+
+  }
+
+
+  
+
+
+  .container2 {
+    display: flex;
+    width: 900px;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+  }
+
+  .card:hover {
+    box-shadow: 5px 10px #0b3c9191;
+  }
+
+  .card {
+    margin: 10px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    width: 300px;
+  }
+  .card-header img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+
+  .card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
+    min-height: 200px;
+  }
+  
+  .tag {
+    background: #cccccc;
+    border-radius: 50px;
+    font-size: 12px;
+    margin: 0;
+    color: #fff;
+    padding: 2px 10px;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  .card-body p {
+    font-size: 13px;
+    margin: 0 0 40px;
+  }
+  .card-body h3, h4{
+      margin: auto;
+  }
+  
+  .nothing, .nothing:hover, .nothing:visited, .nothing:active {
+    color: inherit;
+    text-decoration: none;
+   }
+
+.gallery:hover {
+    box-shadow: 5px 10px #0b3c9191;
+}
+
+.gallery {
+    margin: 10px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    width: 300px;
+}
+.gallery-header img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.gallery-icons img{
+    padding: 20px;
+    max-height: 30px;
+    object-fit: contain;
+}

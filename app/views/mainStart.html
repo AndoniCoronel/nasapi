@@ -1,0 +1,17 @@
+#{extends 'main.html' /}
+#{set title:'MainStart' /}
+
+
+<div class="container">
+    <div class="header">
+        <h1>Nasapi</h1>
+    </div>
+    <div class="topnav">
+        <a class="active" href="@{MainMenu.index()}">Home</a>
+        <a href="@{controllers.ViewData.index()}">My Data</a>
+        <a href="@{ViewGallery.index()}">My Photos</a>
+        <a href="@{controllers.Settings.index()}">Settings</a>
+        <a href="@{controllers.MainMenu.logout()}">Exit</a>
+    </div>
+    #{doLayout /}
+</div>

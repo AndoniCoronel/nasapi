@@ -1,12 +1,18 @@
-#{extends 'main.html' /}
+#{extends 'mainStart.html' /}
 #{set title:'Gallery' /}
 
-#{list pictures, as:'picture'}
-               <tr>
-                   <td>${picture.date}</td>
-                   <td>${picture.id}</td>
-                   <td>
-                        #{a @delete(picture.id)}Cancel#{/a}
-                   </td>
-               </tr>
-#{/list}
+<div class="section">
+    <div class="container2">
+        #{list picURL, as:'pic'}
+            <div class ="gallery">
+                <div>
+                    <img class="gallery-header" src="${pic}">
+
+                </div>
+                <div class="gallery-icons">
+                    #{a @delete(pic)}<img src="@{'/public/images/trash.jpg'}" alt="rover" />#{/a}
+                </div>
+            </div>
+        #{/list}
+    </div>
+</div>

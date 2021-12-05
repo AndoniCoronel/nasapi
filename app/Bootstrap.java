@@ -23,8 +23,10 @@ public class Bootstrap extends Job {
             millis = System.currentTimeMillis();
             date = new Date(millis);
             Picture two = new Picture(date);
-            one.users.add(a);
-            two.users.add(a);
+            one.users.add(b);
+            two.users.add(b);
+            one.save();
+            two.save();
         }
     }
 

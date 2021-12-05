@@ -12,13 +12,11 @@
     <link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
 </head>
 
-<body onload="nasaRequest()">
+<body ">
     #{doLayout /}
 
-    <script src="@{'/public/javascripts/jquery-1.6.4.min.js'}" type="text/javascript"
-        charset="${_response_encoding}"></script>
-    <script src="@{'/public/javascripts/background.js'}" type="text/javascript"
-        charset="${_response_encoding}"></script>
+    <script src=" @{'/public/javascripts/jquery-1.6.4.min.js'}" type="text/javascript" charset="${_response_encoding}">
+    </script>
     #{get 'moreScripts' /}
 </body>
 

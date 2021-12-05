@@ -5,6 +5,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import play.data.binding.As;
 import play.data.validation.Valid;
+import play.db.jpa.JPA;
 import play.mvc.*;
 
 import java.io.BufferedReader;
@@ -14,35 +15,16 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import models.*;
 
+import javax.persistence.*;
+
 public class Application extends Controller {
 
-    @Before
-    static void addUser() {
-        User user = connected();
-        if (user != null) {
-            renderArgs.put("user", user);
-        }
-    }
-
-    static User connected() {
-        if (renderArgs.get("user") != null) {
-            return renderArgs.get("user", User.class);
-        }
-        String username = session.get("user");
-        if (username != null) {
-            return User.find("byName", username).first();
-        }
-        return null;
-    }
-
     public static void index() {
-        if (connected() != null) {
-            MainMenu.index();
-        }
         render();
     }
 
@@ -75,6 +57,57 @@ public class Application extends Controller {
         render();
     }
 
+    public static void api2() {
+        render();
+    }
+
+    public static void api3() throws MalformedURLException, IOException {
+        URL url = new URL("https://epic.gsfc.nasa.gov/api/natural");
+        HttpURLConnection con = (HttpURLConnection) url.openConnection();
+        con.setRequestMethod("GET");
+        int status = con.getResponseCode();
+
+        BufferedReader in = new BufferedReader(
+                new InputStreamReader(con.getInputStream()));
+        String inputLine;
+        StringBuffer content = new StringBuffer();
+        while ((inputLine = in.readLine()) != null) {
+            content.append(inputLine);
+        }
+        in.close();
+        con.disconnect();
+
+        JsonArray data = new JsonParser().parse(content.toString()).getAsJsonArray();
+        String imageID = data.get(0).getAsJsonObject().get("image").getAsString();
+        // 2021-12-04 00:41:06
+        String dateString = data.get(0).getAsJsonObject().get("date").getAsString();
+        String date = (dateString.split(" "))[0];
+        String year = date.split("-")[0];
+        String month = date.split("-")[1];
+        String day = date.split("-")[2];
+        // https://epic.gsfc.nasa.gov/archive/natural/2021/12/04/png/epic_1b_20211204004555.png
+        String urlImage = "https://epic.gsfc.nasa.gov/archive/natural/" + year + "/" + month + "/" + day + "/png/";
+        urlImage += imageID;
+        urlImage += ".png";
+        System.out.println(urlImage);
+        URL url2 = new URL(urlImage);
+        InputStream is = url2.openStream();
+        OutputStream os = new FileOutputStream("nasapi/public/images/earthApi.png");
+        byte[] b = new byte[2048];
+        int length;
+        while ((length = is.read(b)) != -1) {
+            os.write(b, 0, length);
+        }
+        is.close();
+        os.close();
+
+        render();
+    }
+
+    public static void saveImage(String imageUrl, String destinationFile) throws IOException {
+
+    }
+
     public static void imageOfTheDay() {
         // save the image of the day for the current user
     }
@@ -96,7 +129,7 @@ public class Application extends Controller {
         index();
     }
 
-    public static void start(String uname, String psw) {
+    public static void start(String uname, String psw, boolean unregister) {
         User u = User.find("byName", uname).first();
         if (u != null) {
             if (u.password.equals(psw)) {

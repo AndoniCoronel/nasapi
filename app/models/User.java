@@ -1,5 +1,6 @@
 package models;
 
+import net.bytebuddy.implementation.bind.annotation.Default;
 import play.data.validation.*;
 import play.db.jpa.*;
 
@@ -30,6 +31,7 @@ public class User extends Model {
     public int age;
 
     //profile level
+    public int profileLevel; //Default (0=normal user, 1= admin, 2=donationsManager)
 
 
     //relations
@@ -47,5 +49,13 @@ public class User extends Model {
         this.password = password;
         this.profilePic = profilePic;
         this.age = age;
+        this.profileLevel=0;
+    }
+    public User(String name, String password, String profilePic, int age, int profileLevel){
+        this.name = name;
+        this.password = password;
+        this.profilePic = profilePic;
+        this.age = age;
+        this.profileLevel = profileLevel;
     }
 }

@@ -1,0 +1,12 @@
+#{extends 'main.html' /}
+#{set title:'Gallery' /}
+
+#{list pictures, as:'picture'}
+               <tr>
+                   <td>${picture.date}</td>
+                   <td>${picture.id}</td>
+                   <td>
+                        #{a @delete(picture.id)}Cancel#{/a}
+                   </td>
+               </tr>
+#{/list}

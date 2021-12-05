@@ -1,0 +1,391 @@
+Index: app/models/User.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package models;\r\n\r\nimport play.data.validation.*;\r\nimport play.db.jpa.*;\r\n\r\nimport javax.persistence.*;\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\n\r\n@Entity\r\npublic class User extends Model {\r\n\r\n    //properties\r\n    @Required\r\n    @MaxSize(15)\r\n    @MinSize(4)\r\n    @Match(value=\"^\\\\w*$\", message=\"Not a valid username\")\r\n    public String name;\r\n\r\n    @Required\r\n    @MaxSize(15)\r\n    @MinSize(5)\r\n    public String password;\r\n    public String profilePic;\r\n\r\n    @Required\r\n    @MaxSize(3)\r\n    @MinSize(1)\r\n    @Match(value = \"^[1-9]{1}[0-9]*$\", message = \"invalid age, don't be a troll :) \")\r\n    public int age;\r\n\r\n    //profile level\r\n\r\n\r\n    //relations\r\n    @OneToMany (mappedBy= \"user\", cascade=CascadeType.ALL)\r\n    public List<Donation> donations = new ArrayList<>();\r\n    @ManyToMany (mappedBy = \"users\", cascade=CascadeType.ALL)\r\n    public List<Picture> pictures = new ArrayList<>();\r\n    @ManyToMany (mappedBy = \"users\", cascade=CascadeType.ALL)\r\n    public List<Api> apis = new ArrayList<>();\r\n\r\n\r\n\r\n    public User(String name, String password, String profilePic, int age) {\r\n        this.name = name;\r\n        this.password = password;\r\n        this.profilePic = profilePic;\r\n        this.age = age;\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/models/User.java b/app/models/User.java
+--- a/app/models/User.java	(revision ea98e711d951c001b4b7d118ddcb28bb1046eb69)
++++ b/app/models/User.java	(date 1638707347016)
+@@ -1,5 +1,6 @@
+ package models;
+ 
++import net.bytebuddy.implementation.bind.annotation.Default;
+ import play.data.validation.*;
+ import play.db.jpa.*;
+ 
+@@ -30,6 +31,7 @@
+     public int age;
+ 
+     //profile level
++    public int profileLevel; //Default (0=normal user, 1= admin, 2=donationsManager)
+ 
+ 
+     //relations
+@@ -47,5 +49,13 @@
+         this.password = password;
+         this.profilePic = profilePic;
+         this.age = age;
++        this.profileLevel=0;
++    }
++    public User(String name, String password, String profilePic, int age, int profileLevel){
++        this.name = name;
++        this.password = password;
++        this.profilePic = profilePic;
++        this.age = age;
++        this.profileLevel = profileLevel;
+     }
+ }
+\ No newline at end of file
+Index: app/Bootstrap.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import play.jobs.*;\r\nimport models.*;\r\n\r\n@OnApplicationStart\r\npublic class Bootstrap extends Job {\r\n\r\n    public void doJob() {\r\n        // Load default data if the database is empty\r\n        if(User.count() == 0) {\r\n            User a = new User(\"Dexter\",\"1234\", \"dexter1\",6);\r\n            a.save();\r\n            User b = new User(\"a\",\"a\", \"dexter2\",1);\r\n            b.save();\r\n            new Donation(100,2,a).save();\r\n            new Donation(150,3,a).save();\r\n            new Donation(15,1,b).save();\r\n            new Api(1,\"blabla\").save();\r\n        }\r\n    }\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/Bootstrap.java b/app/Bootstrap.java
+--- a/app/Bootstrap.java	(revision ea98e711d951c001b4b7d118ddcb28bb1046eb69)
++++ b/app/Bootstrap.java	(date 1638711384106)
+@@ -1,6 +1,8 @@
+ import play.jobs.*;
+ import models.*;
+ 
++import java.util.Date;
++
+ @OnApplicationStart
+ public class Bootstrap extends Job {
+ 
+@@ -9,12 +11,20 @@
+         if(User.count() == 0) {
+             User a = new User("Dexter","1234", "dexter1",6);
+             a.save();
+-            User b = new User("a","a", "dexter2",1);
++            User b = new User("a","a", "dexter2",1, 1);
+             b.save();
+             new Donation(100,2,a).save();
+             new Donation(150,3,a).save();
+             new Donation(15,1,b).save();
+             new Api(1,"blabla").save();
++            long millis = System.currentTimeMillis();
++            Date date = new Date(millis);
++            Picture one = new Picture(date);
++            millis = System.currentTimeMillis();
++            date = new Date(millis);
++            Picture two = new Picture(date);
++            one.users.add(a);
++            two.users.add(a);
+         }
+     }
+ 
+Index: app/views/Application/start.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/views/Application/start.html b/app/views/MainMenu/index.html
+rename from app/views/Application/start.html
+rename to app/views/MainMenu/index.html
+--- a/app/views/Application/start.html	(revision ea98e711d951c001b4b7d118ddcb28bb1046eb69)
++++ b/app/views/MainMenu/index.html	(date 1638711430062)
+@@ -1,4 +1,8 @@
+ #{extends 'main.html' /}
+ #{set title:'Login' /}
+ 
+-<h1  style="color:MediumSeaGreen;">Session started</h1>
++<h1  style="color:MediumSeaGreen;">Session started, welcome ${user.name}</h1><br>
++
++<a href="@{Settings.index()}">Settings</a>
++<a href="@{controllers.ViewGallery.index()}">Gallery</a>
++
+Index: app/controllers/Application.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package controllers;\r\n\r\nimport com.google.gson.JsonObject;\r\nimport play.*;\r\nimport play.data.binding.As;\r\nimport play.data.validation.Valid;\r\nimport play.db.jpa.JPA;\r\nimport play.mvc.*;\r\n\r\nimport java.text.ParseException;\r\nimport java.text.SimpleDateFormat;\r\nimport java.util.*;\r\n\r\nimport models.*;\r\n\r\nimport javax.persistence.*;\r\n\r\npublic class Application extends Controller {\r\n\r\n    public static void index() {\r\n        render();\r\n        }\r\n\r\n    public static void login() {\r\n        render();\r\n    }\r\n\r\n    public static void signup(){\r\n        render();\r\n    }\r\n\r\n    public static void registered(@Valid User user, String verifyPassword){\r\n        //validation.required(user.name);\r\n        validation.required(verifyPassword);\r\n        validation.equals(verifyPassword, user.password).message(\"Your password doesn't match\");\r\n        if(validation.hasErrors()) {\r\n            render(\"@signup\", user, verifyPassword);\r\n        }\r\n        user.create();\r\n        session.put(\"user\", user.name);\r\n        flash.success(\"Welcome, \" + user.name);\r\n        index();\r\n    }\r\n    public static void start(String uname, String psw, boolean unregister){\r\n        User u = User.find(\"byName\",uname).first();\r\n        if (u != null) {\r\n            if (u.password.equals(psw))\r\n            {\r\n                if(unregister){\r\n                    u.delete();\r\n                    index();\r\n                }else {\r\n                    render();\r\n                }\r\n            }\r\n            else{\r\n                flash.error(\"Incorrect password\");\r\n                login();\r\n            }\r\n        }\r\n        else {\r\n            flash.error(\"User does not exists\");\r\n            login();\r\n        }\r\n    }\r\n\r\n    public static void editPassword(String uname, String psw, String newPsw){\r\n        //http://localhost:9000/Application/editPassword?uname=a&psw=a&newPsw=aaa\r\n        User u = User.find(\"byName\",uname).first();\r\n        List<User> users = new ArrayList<>();\r\n        for (User user:users ) {\r\n\r\n        }\r\n        if (u != null) {\r\n            if (u.password.equals(psw))\r\n            {\r\n                u.password=newPsw;\r\n                u.save();\r\n                renderText(\"password changed\");\r\n\r\n            }\r\n            else{\r\n                renderText(\"Incorrect password\");\r\n            }\r\n        }\r\n        else {\r\n            renderText(\"User does not exists\");\r\n\r\n        }\r\n    }\r\n\r\n    public static void editProfilePic(String uname, String newProfilePic){\r\n        //http://localhost:9000/Application/editProfilePic?uname=a&newPorfilePic=dexter1\r\n        User u = User.find(\"byName\",uname).first();\r\n        if (u != null) {\r\n            u.profilePic=newProfilePic;\r\n            u.save();\r\n            renderText(\"profile pic changed\");\r\n        }\r\n        else {\r\n            renderText(\"User does not exists\");\r\n        }\r\n\r\n    }\r\n\r\n    public static void addPicture(String uname,@As(\"dd/MM/yyyy\") Date pictureDate) throws ParseException {\r\n        //http://localhost:9000/Application/addPicture?uname=a&pictureDate=12/12/2000\r\n        Picture pic = Picture.find(\"byDate\",pictureDate).first();\r\n        User user = User.find(\"byName\",uname).first();\r\n        if (user != null) {\r\n            if(pic==null){\r\n                pic = new Picture(pictureDate);\r\n            }\r\n            if(!user.pictures.contains(pic)) {\r\n                pic.users.add(user);\r\n                pic.save();\r\n                user.pictures.add(pic);\r\n                user.save();\r\n                renderText(\"added user\");\r\n            }\r\n        }\r\n        else {\r\n            renderText(\"User does not exists\");\r\n        }\r\n\r\n    }\r\n\r\n    //Android functions\r\n    public void androidLogin(String uname, String psw){\r\n        User u = User.find(\"byName\",uname).first();\r\n        JsonObject jsonObject = new JsonObject();\r\n        if (u != null) {\r\n            if (u.password.equals(psw))\r\n            {\r\n                jsonObject.addProperty(\"login\",true);\r\n                renderJSON(jsonObject);\r\n            }\r\n            else{\r\n                jsonObject.addProperty(\"login\",false);\r\n                renderJSON(jsonObject);\r\n            }\r\n        }\r\n        else {\r\n            jsonObject.addProperty(\"login\",false);\r\n            renderJSON(jsonObject);\r\n        }\r\n    }\r\n\r\n    //Android functions\r\n    public void androidRegister(String name, String password,String verifyPassword, int age, String dexter ){\r\n        JsonObject jsonObject = new JsonObject();\r\n        User u = User.find(\"byName\",name).first();\r\n        //Check if user already exists\r\n        if(u==null){\r\n            //Check that the passwords match\r\n            if(password.equals(verifyPassword)){\r\n                u = new User(name, password, dexter, age);\r\n                u.save();\r\n                jsonObject.addProperty(\"register\",true);\r\n                renderJSON(jsonObject);\r\n            } else{\r\n                jsonObject.addProperty(\"register\",false);\r\n                jsonObject.addProperty(\"error\", \"Passwords don't match\");\r\n                renderJSON(jsonObject);\r\n            }\r\n        } else {\r\n                jsonObject.addProperty(\"register\",false);\r\n                jsonObject.addProperty(\"error\", \"User already exists\");\r\n                renderJSON(jsonObject);\r\n        }\r\n    }\r\n\r\n\r\n\r\n    //Test functions\r\n    public void getSomething(){\r\n        renderJSON(\"{\\\"phonetype\\\":\\\"N95\\\"}\");\r\n    }\r\n\r\n\r\n\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/controllers/Application.java b/app/controllers/Application.java
+--- a/app/controllers/Application.java	(revision ea98e711d951c001b4b7d118ddcb28bb1046eb69)
++++ b/app/controllers/Application.java	(date 1638708962783)
+@@ -1,25 +1,41 @@
+ package controllers;
+ 
+-import com.google.gson.JsonObject;
+-import play.*;
+ import play.data.binding.As;
+ import play.data.validation.Valid;
+-import play.db.jpa.JPA;
+ import play.mvc.*;
+ 
+ import java.text.ParseException;
+-import java.text.SimpleDateFormat;
+ import java.util.*;
+ 
+ import models.*;
+ 
+-import javax.persistence.*;
+-
+ public class Application extends Controller {
+ 
++    @Before
++    static void addUser() {
++        User user = connected();
++        if(user != null) {
++            renderArgs.put("user", user);
++        }
++    }
++
++    static User connected() {
++        if(renderArgs.get("user") != null) {
++            return renderArgs.get("user", User.class);
++        }
++        String username = session.get("user");
++        if(username != null) {
++            return User.find("byName", username).first();
++        }
++        return null;
++    }
++
+     public static void index() {
++        if(connected() != null) {
++            MainMenu.index();
++        }
+         render();
+-        }
++    }
+ 
+     public static void login() {
+         render();
+@@ -41,17 +57,13 @@
+         flash.success("Welcome, " + user.name);
+         index();
+     }
+-    public static void start(String uname, String psw, boolean unregister){
++    public static void start(String uname, String psw){
+         User u = User.find("byName",uname).first();
+         if (u != null) {
+             if (u.password.equals(psw))
+             {
+-                if(unregister){
+-                    u.delete();
+-                    index();
+-                }else {
+-                    render();
+-                }
++                    session.put("user", u.name);
++                    MainMenu.index();
+             }
+             else{
+                 flash.error("Incorrect password");
+@@ -64,44 +76,6 @@
+         }
+     }
+ 
+-    public static void editPassword(String uname, String psw, String newPsw){
+-        //http://localhost:9000/Application/editPassword?uname=a&psw=a&newPsw=aaa
+-        User u = User.find("byName",uname).first();
+-        List<User> users = new ArrayList<>();
+-        for (User user:users ) {
+-
+-        }
+-        if (u != null) {
+-            if (u.password.equals(psw))
+-            {
+-                u.password=newPsw;
+-                u.save();
+-                renderText("password changed");
+-
+-            }
+-            else{
+-                renderText("Incorrect password");
+-            }
+-        }
+-        else {
+-            renderText("User does not exists");
+-
+-        }
+-    }
+-
+-    public static void editProfilePic(String uname, String newProfilePic){
+-        //http://localhost:9000/Application/editProfilePic?uname=a&newPorfilePic=dexter1
+-        User u = User.find("byName",uname).first();
+-        if (u != null) {
+-            u.profilePic=newProfilePic;
+-            u.save();
+-            renderText("profile pic changed");
+-        }
+-        else {
+-            renderText("User does not exists");
+-        }
+-
+-    }
+ 
+     public static void addPicture(String uname,@As("dd/MM/yyyy") Date pictureDate) throws ParseException {
+         //http://localhost:9000/Application/addPicture?uname=a&pictureDate=12/12/2000
+@@ -124,60 +98,4 @@
+         }
+ 
+     }
+-
+-    //Android functions
+-    public void androidLogin(String uname, String psw){
+-        User u = User.find("byName",uname).first();
+-        JsonObject jsonObject = new JsonObject();
+-        if (u != null) {
+-            if (u.password.equals(psw))
+-            {
+-                jsonObject.addProperty("login",true);
+-                renderJSON(jsonObject);
+-            }
+-            else{
+-                jsonObject.addProperty("login",false);
+-                renderJSON(jsonObject);
+-            }
+-        }
+-        else {
+-            jsonObject.addProperty("login",false);
+-            renderJSON(jsonObject);
+-        }
+-    }
+-
+-    //Android functions
+-    public void androidRegister(String name, String password,String verifyPassword, int age, String dexter ){
+-        JsonObject jsonObject = new JsonObject();
+-        User u = User.find("byName",name).first();
+-        //Check if user already exists
+-        if(u==null){
+-            //Check that the passwords match
+-            if(password.equals(verifyPassword)){
+-                u = new User(name, password, dexter, age);
+-                u.save();
+-                jsonObject.addProperty("register",true);
+-                renderJSON(jsonObject);
+-            } else{
+-                jsonObject.addProperty("register",false);
+-                jsonObject.addProperty("error", "Passwords don't match");
+-                renderJSON(jsonObject);
+-            }
+-        } else {
+-                jsonObject.addProperty("register",false);
+-                jsonObject.addProperty("error", "User already exists");
+-                renderJSON(jsonObject);
+-        }
+-    }
+-
+-
+-
+-    //Test functions
+-    public void getSomething(){
+-        renderJSON("{\"phonetype\":\"N95\"}");
+-    }
+-
+-
+-
+-
+ }
+\ No newline at end of file
+Index: app/views/Application/signup.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>#{extends 'main.html' /}\r\n#{set title:'SignUp' /}\r\n\r\n<div class=\"signup\">\r\n#{form @registered()}\r\n    #{field 'user.name'}\r\n    <p class=\"${field.errorClass}\">\r\n        <label>Real name:</label>\r\n        <input type=\"text\" name=\"${field.name}\" size=\"16\" value=\"${user?.name}\">\r\n        <span class=\"error\">${field.error}</span>\r\n    </p>\r\n    #{/field}\r\n\r\n    #{field 'user.password'}\r\n    <p class=\"${field.errorClass}\">\r\n        <label>Password:</label>\r\n        <input type=\"password\" name=\"${field.name}\" size=\"16\" value=\"${user?.password}\">\r\n        <span class=\"error\">${field.error}</span>\r\n    </p>\r\n    #{/field}\r\n\r\n    #{field 'verifyPassword'}\r\n    <p class=\"${field.errorClass}\">\r\n        <label>Verify password:</label>\r\n        <input type=\"password\" name=\"${field.name}\" size=\"16\" value=\"${verifyPassword}\">\r\n        <span class=\"error\">${field.error}</span>\r\n    </p>\r\n    #{/field}\r\n\r\n    #{field 'user.age'}\r\n    <p class=\"${field.errorClass}\">\r\n        <label>Age:</label>\r\n        <input type=\"text\" name=\"${field.name}\" size=\"16\" value=\"${user?.age}\">\r\n        <span class=\"error\">${field.error}</span>\r\n    </p>\r\n    #{/field}\r\n    #{field 'user.profilePic'}\r\n    <p class=\"${field.errorClass}\">\r\n        <select name=\"${field.name}\" id=\"dexters\">\r\n            <option value=\"dexter1\">Happy Dog</option>\r\n            <option value=\"dexter2\">Tired Dog</option>\r\n            <option value=\"dexter3\">Funky Dog</option>\r\n            <option value=\"dexter4\">Spa Dog</option>\r\n        </select>\r\n        <span class=\"error\">${field.error}</span>\r\n    </p>\r\n    #{/field}\r\n<p class=\"buttons\">\r\n    <input type=\"submit\" value=\"Register\"> <a href=\"@{index()}\">Cancel</a>\r\n</p>\r\n#{/form}\r\n</div>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/views/Application/signup.html b/app/views/Application/signup.html
+--- a/app/views/Application/signup.html	(revision ea98e711d951c001b4b7d118ddcb28bb1046eb69)
++++ b/app/views/Application/signup.html	(date 1638708631797)
+@@ -46,7 +46,7 @@
+     </p>
+     #{/field}
+ <p class="buttons">
+-    <input type="submit" value="Register"> <a href="@{index()}">Cancel</a>
++    <input type="submit" value="Register"> <a href="@{settingsAdmin()}">Cancel</a>
+ </p>
+ #{/form}
+ </div>
+Index: test/ApplicationTest.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/test/ApplicationTest.java b/test/StartScreenTest.java
+rename from test/ApplicationTest.java
+rename to test/StartScreenTest.java
+--- a/test/ApplicationTest.java	(revision ea98e711d951c001b4b7d118ddcb28bb1046eb69)
++++ b/test/StartScreenTest.java	(date 1638704672326)
+@@ -4,7 +4,7 @@
+ import play.mvc.Http.*;
+ import models.*;
+ 
+-public class ApplicationTest extends FunctionalTest {
++public class StartScreenTest extends FunctionalTest {
+ 
+     @Test
+     public void testThatIndexPageWorks() {
+Index: nasapi.iws
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"7bea3fd2-6ef9-41e9-a329-80d0de686838\" name=\"Changes\" comment=\"added the common functions\">\r\n      <change beforePath=\"$PROJECT_DIR$/app/controllers/Application.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/app/controllers/Application.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/nasapi.iws\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/nasapi.iws\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"CodeStyleSettingsInfer\">\r\n    <option name=\"done\" value=\"true\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"JavaScript File\" />\r\n        <option value=\"HTML File\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"GitSEFilterConfiguration\">\r\n    <file-type-list>\r\n      <filtered-out-file-type name=\"LOCAL_BRANCH\" />\r\n      <filtered-out-file-type name=\"REMOTE_BRANCH\" />\r\n      <filtered-out-file-type name=\"TAG\" />\r\n      <filtered-out-file-type name=\"COMMIT_BY_MESSAGE\" />\r\n    </file-type-list>\r\n  </component>\r\n  <component name=\"ProjectCodeStyleSettingsMigration\">\r\n    <option name=\"version\" value=\"2\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"1ySYTQM4qHrvyNjIqCnUPc8BB0N\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\">\r\n    <ConfirmationsSetting value=\"1\" id=\"Add\" />\r\n  </component>\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">\r\n    <property name=\"DefaultHtmlFileTemplate\" value=\"HTML File\" />\r\n    <property name=\"RunOnceActivity.OpenProjectViewOnStart\" value=\"true\" />\r\n    <property name=\"RunOnceActivity.ShowReadmeOnStart\" value=\"true\" />\r\n    <property name=\"WebServerToolWindowFactoryState\" value=\"false\" />\r\n    <property name=\"last_opened_file_path\" value=\"$PROJECT_DIR$\" />\r\n    <property name=\"nodejs_package_manager_path\" value=\"npm\" />\r\n    <property name=\"project.structure.last.edited\" value=\"Project\" />\r\n    <property name=\"project.structure.proportion\" value=\"0.0\" />\r\n    <property name=\"project.structure.side.proportion\" value=\"0.2\" />\r\n    <property name=\"settings.editor.selected.configurable\" value=\"reference.projectsettings.compiler.javacompiler\" />\r\n  </component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"CopyClassDialog.RECENTS_KEY\">\r\n      <recent name=\"controllers\" />\r\n      <recent name=\"models\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"7bea3fd2-6ef9-41e9-a329-80d0de686838\" name=\"Changes\" comment=\"\" />\r\n      <created>1632246465189</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1632246465189</updated>\r\n      <workItem from=\"1632993070406\" duration=\"972000\" />\r\n      <workItem from=\"1632994068146\" duration=\"5743000\" />\r\n      <workItem from=\"1633345762349\" duration=\"1872000\" />\r\n      <workItem from=\"1634124488276\" duration=\"34000\" />\r\n      <workItem from=\"1634489244201\" duration=\"368000\" />\r\n      <workItem from=\"1634551303441\" duration=\"698000\" />\r\n      <workItem from=\"1635013707260\" duration=\"3184000\" />\r\n      <workItem from=\"1635156633213\" duration=\"3431000\" />\r\n      <workItem from=\"1635760227753\" duration=\"2813000\" />\r\n      <workItem from=\"1635768857977\" duration=\"434000\" />\r\n      <workItem from=\"1635790346078\" duration=\"103000\" />\r\n      <workItem from=\"1635790484274\" duration=\"300000\" />\r\n      <workItem from=\"1635790814819\" duration=\"141000\" />\r\n      <workItem from=\"1636369812986\" duration=\"245000\" />\r\n      <workItem from=\"1636370866295\" duration=\"20000\" />\r\n      <workItem from=\"1636371570436\" duration=\"2612000\" />\r\n      <workItem from=\"1636374346267\" duration=\"1091000\" />\r\n      <workItem from=\"1637402499817\" duration=\"6657000\" />\r\n      <workItem from=\"1637524632550\" duration=\"3076000\" />\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"minor changes\">\r\n      <created>1634489396958</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1634489396958</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"2\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n    <option name=\"oldMeFiltersMigrated\" value=\"true\" />\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"minor changes\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"minor changes\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/nasapi.iws b/nasapi.iws
+--- a/nasapi.iws	(revision ea98e711d951c001b4b7d118ddcb28bb1046eb69)
++++ b/nasapi.iws	(date 1638716182603)
+@@ -5,8 +5,13 @@
+   </component>
+   <component name="ChangeListManager">
+     <list default="true" id="7bea3fd2-6ef9-41e9-a329-80d0de686838" name="Changes" comment="added the common functions">
++      <change beforePath="$PROJECT_DIR$/app/Bootstrap.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/Bootstrap.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/app/controllers/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/Application.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/app/models/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/User.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/app/views/Application/signup.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/Application/signup.html" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/app/views/Application/start.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/MainMenu/index.html" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/nasapi.iws" beforeDir="false" afterPath="$PROJECT_DIR$/nasapi.iws" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/test/ApplicationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/StartScreenTest.java" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -20,6 +25,7 @@
+     <option name="RECENT_TEMPLATES">
+       <list>
+         <option value="JavaScript File" />
++        <option value="Class" />
+         <option value="HTML File" />
+       </list>
+     </option>
+@@ -51,7 +57,7 @@
+     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+     <property name="WebServerToolWindowFactoryState" value="false" />
+-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
++    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/views/Settings" />
+     <property name="nodejs_package_manager_path" value="npm" />
+     <property name="project.structure.last.edited" value="Project" />
+     <property name="project.structure.proportion" value="0.0" />
+@@ -59,6 +65,12 @@
+     <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
+   </component>
+   <component name="RecentsManager">
++    <key name="CopyFile.RECENT_KEYS">
++      <recent name="C:\Users\David\OneDrive\Documentos\UNI\PES\play-1.5.3\nasapi\app\views\Settings" />
++    </key>
++    <key name="MoveFile.RECENT_KEYS">
++      <recent name="C:\Users\David\OneDrive\Documentos\UNI\PES\play-1.5.3\nasapi\app\views\MainMenu" />
++    </key>
+     <key name="CopyClassDialog.RECENTS_KEY">
+       <recent name="controllers" />
+       <recent name="models" />
+@@ -91,6 +103,10 @@
+       <workItem from="1636374346267" duration="1091000" />
+       <workItem from="1637402499817" duration="6657000" />
+       <workItem from="1637524632550" duration="3076000" />
++      <workItem from="1637581511457" duration="758000" />
++      <workItem from="1637584145579" duration="931000" />
++      <workItem from="1638703873762" duration="2154000" />
++      <workItem from="1638706200754" duration="6081000" />
+     </task>
+     <task id="LOCAL-00001" summary="minor changes">
+       <created>1634489396958</created>

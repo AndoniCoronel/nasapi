@@ -4,6 +4,9 @@ import play.jobs.*;
 import models.*;
 
 import com.google.gson.JsonElement;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.net.*;
 import java.io.*;
@@ -25,10 +28,10 @@ public class Bootstrap extends Job {
             new Api(1,"blabla").save();
             long millis = System.currentTimeMillis();
             Date date = new Date(millis);
-            Picture one = new Picture(date);
+            Picture one = new Picture(removeTime(date));
             millis = System.currentTimeMillis();
             date = new Date(millis);
-            Picture two = new Picture(date);
+            Picture two = new Picture(removeTime(date));
             one.users.add(b);
             two.users.add(b);
             one.save();
@@ -66,6 +69,15 @@ public class Bootstrap extends Job {
         }
         is.close();
         os.close();
+    }
+    public static Date removeTime(Date date) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        return cal.getTime();
     }
 
 }

@@ -2,6 +2,7 @@ package controllers;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
+import models.Donation;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -52,5 +53,10 @@ public class Api3 extends Application{
             System.out.println(e);
         }
         render();
+    }
+    public static void donation(float quatity){
+        Donation donation = new Donation(quatity,3,connected());
+        donation.save();
+
     }
 }

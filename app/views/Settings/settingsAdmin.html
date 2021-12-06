@@ -1,18 +1,23 @@
 #{extends 'mainStart.html' /}
 #{set title:'Settings' /}
 
+<div class="container2">
+    <div class="card">
 
-<a href="@{deleteUser()}">delete</a><br>
+        <a href="@{deleteUser()}"><button style="background-color:#DF0000">delete</button></a><br>
+    </div>
+    <div class ="card">
+        #{form @changeToUser()}
+            #{field 'uname'}
+            <p class="${field.errorClass}">
+                <strong>Change to user:</strong> <input type="text" name="uname" size="16" value="${uname}">
+                <span class="error">${field.error}</span>
+            </p>
+            #{/field}
+            <p class="buttons">
+            <input type="submit" value="Save">
+            </p>
 
-#{form @changeToUser()}
-    #{field 'uname'}
-    <p class="${field.errorClass}">
-        <strong>user:</strong> <input type="text" name="uname" size="16" value="${uname}">
-        <span class="error">${field.error}</span>
-    </p>
-    #{/field}
-    <p class="buttons">
-    <input type="submit" value="Save">
-    </p>
-
-#{/form}
+        #{/form}
+    </div>
+</div>

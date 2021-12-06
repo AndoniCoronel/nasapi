@@ -5,12 +5,12 @@
     <div class="container2">
         #{list picURL, as:'pic'}
             <div class ="gallery">
-                <div>
-                    <img class="gallery-header" src="${pic}">
-
+                <div class="gallery-header">
+                    <img src="${pic.value}">
                 </div>
                 <div class="gallery-icons">
-                    #{a @delete(pic)}<img src="@{'/public/images/trash.jpg'}" alt="rover" />#{/a}
+                    ${pic.key}
+                    #{a @delete(pic.key)}<img src="@{'/public/images/trash.jpg'}" />#{/a}
                 </div>
             </div>
         #{/list}

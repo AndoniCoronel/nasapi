@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
 import com.google.gson.*;
+import models.Donation;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -55,5 +56,11 @@ public class Api2 extends Application {
             System.out.println(e);
         }
         render();
+    }
+    public static void donation(float quantity){
+        Donation donation = new Donation(quantity,3,connected());
+        donation.save();
+        index();
+
     }
 }

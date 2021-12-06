@@ -54,9 +54,10 @@ public class Api3 extends Application {
         }
         render();
     }
-    public static void donation(float quatity){
-        Donation donation = new Donation(quatity,3,connected());
+    public static void donation(float quantity){
+        Donation donation = new Donation(quantity,3,connected());
         donation.save();
+        index();
 
     }
 }

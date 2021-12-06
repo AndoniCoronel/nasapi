@@ -2,7 +2,7 @@
 #{set title:'SignUp' /}
 
 <div class="signup">
-#{form @registered()}
+    #{form @registered()}
     #{field 'user.name'}
     <p class="${field.errorClass}">
         <label>Real name:</label>
@@ -45,8 +45,8 @@
         <span class="error">${field.error}</span>
     </p>
     #{/field}
-<p class="buttons">
-    <input type="submit" value="Register"> <a href="@{settingsAdmin()}">Cancel</a>
-</p>
-#{/form}
+    <p class="buttons">
+        <input type="submit" value="Register"> <a href="@{settingsAdmin()}">Cancel</a>
+    </p>
+    #{/form}
 </div>

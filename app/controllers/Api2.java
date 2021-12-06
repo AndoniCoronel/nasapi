@@ -1,19 +1,30 @@
 package controllers;
 
+import java.time.LocalDate;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.time.format.DateTimeFormatter;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
+import com.google.gson.*;
 
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class Api3 extends Application {
+public class Api2 extends Application {
     public static void index() {
+        // https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=2021-12-05&camera=fhaz&api_key=DEMO_KEY
         try {
-            URL url = new URL("https://epic.gsfc.nasa.gov/api/natural");
+            LocalDate today = LocalDate.now();
+            String yesterdayDate = (today.minusDays(1)).format(DateTimeFormatter.ISO_DATE);
+
+            String urlTemp = "https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date="
+                    + yesterdayDate + "&camera=fhaz&api_key=DEMO_KEY";
+
+            URL url = new URL(urlTemp);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
-            int status = con.getResponseCode();
 
             BufferedReader in = new BufferedReader(
                     new InputStreamReader(con.getInputStream()));
@@ -25,22 +36,14 @@ public class Api3 extends Application {
             in.close();
             con.disconnect();
 
-            JsonArray data = new JsonParser().parse(content.toString()).getAsJsonArray();
-            String imageID = data.get(0).getAsJsonObject().get("image").getAsString();
-            // 2021-12-04 00:41:06
-            String dateString = data.get(0).getAsJsonObject().get("date").getAsString();
-            String date = (dateString.split(" "))[0];
-            String year = date.split("-")[0];
-            String month = date.split("-")[1];
-            String day = date.split("-")[2];
-            // https://epic.gsfc.nasa.gov/archive/natural/2021/12/04/png/epic_1b_20211204004555.png
-            String urlImage = "https://epic.gsfc.nasa.gov/archive/natural/" + year + "/" + month + "/" + day + "/png/";
-            urlImage += imageID;
-            urlImage += ".png";
+            JsonObject data = new JsonParser().parse(content.toString()).getAsJsonObject().get("photos")
+                    .getAsJsonArray()
+                    .get(0).getAsJsonObject();
 
+            String urlImage = data.get("img_src").getAsString();
             URL url2 = new URL(urlImage);
             InputStream is = url2.openStream();
-            OutputStream os = new FileOutputStream("nasapi/public/images/earthApi.png");
+            OutputStream os = new FileOutputStream("nasapi/public/images/marsApi.png");
             byte[] b = new byte[2048];
             int length;
             while ((length = is.read(b)) != -1) {

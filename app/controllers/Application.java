@@ -47,11 +47,11 @@ public class Application extends Controller {
     }
 
     public static void api1() throws IOException {
-       Api3.index();
+        Api3.index();
     }
 
     public static void api2() {
-        render();
+        Api2.index();
     }
 
     public static void api3() {

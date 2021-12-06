@@ -72,7 +72,6 @@
 
   .container2 {
     display: flex;
-    width: 900px;
     justify-content: space-evenly;
     flex-wrap: wrap;
   }
@@ -152,3 +151,28 @@
     max-height: 30px;
     object-fit: contain;
 }
+
+
+
+
+
+.donate {
+  background: #00684d;
+background-position: 0 0;
+  background-size: 200% 100%;
+  border-radius: 4px;
+  color: #fff;
+  padding: 15px 15px 15px 15px;
+  text-shadow: 1px 1px 5px #666;
+  -webkit-transition: all 800ms;
+  transition: all 800ms;
+  text-align: center;
+}
+  
+
+  
+  .donate:hover {
+    background-position: -100% 0;
+  }
+    
+

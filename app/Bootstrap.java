@@ -17,20 +17,20 @@ public class Bootstrap extends Job {
 
     public void doJob() throws IOException {
         // Load default data if the database is empty
-        if(User.count() == 0) {
-            User a = new User("Dexter","1234", "dexter1",6);
+        if (User.count() == 0) {
+            User a = new User("Dexter", "1234", "dexter1", 6);
             a.save();
-            User b = new User("a","a", "dexter2",1, 1);
+            User b = new User("a", "a", "dexter2", 1, 1);
             b.save();
-            new Donation(100,2,a).save();
-            new Donation(150,3,a).save();
-            new Donation(15,1,b).save();
-            new Api(1,"blabla").save();
+            new Donation(100, 2, a).save();
+            new Donation(150, 3, a).save();
+            new Donation(15, 1, b).save();
+            new Api(1, "blabla").save();
             long millis = System.currentTimeMillis();
-            Date date = new Date(millis);
+            Date date = new Date(millis - 86400000);
             Picture one = new Picture(removeTime(date));
             millis = System.currentTimeMillis();
-            date = new Date(millis);
+            date = new Date(millis - 86400000 * 2);
             Picture two = new Picture(removeTime(date));
             one.users.add(b);
             two.users.add(b);
@@ -70,6 +70,7 @@ public class Bootstrap extends Job {
         is.close();
         os.close();
     }
+
     public static Date removeTime(Date date) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);

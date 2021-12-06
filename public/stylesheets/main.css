@@ -11,11 +11,10 @@ button {
 button:hover {
     opacity: 0.8;
 }
-html,body {
+html {
     height:100%;
     width:100%;
     margin:0;
-    background-image: url("/public/images/backgroundImage.png");
 }
 label{
     font-family: "Helvetica";
@@ -25,9 +24,12 @@ input::placeholder  {
 }
 
 body {
-    background-repeat: no-repeat;
+    background-repeat: repeat-y;
+    background-size: 100% auto;
     background-size:cover;
     display:flex;
+    background-image: url("/public/images/backgroundImage.png");
+
 }
 .formulario {
     margin:auto

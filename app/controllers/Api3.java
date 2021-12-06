@@ -8,7 +8,7 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class Api3 extends Application{
+public class Api3 extends Application {
     public static void index() {
         try {
             URL url = new URL("https://epic.gsfc.nasa.gov/api/natural");
@@ -38,7 +38,7 @@ public class Api3 extends Application{
             String urlImage = "https://epic.gsfc.nasa.gov/archive/natural/" + year + "/" + month + "/" + day + "/png/";
             urlImage += imageID;
             urlImage += ".png";
-            System.out.println(urlImage);
+
             URL url2 = new URL(urlImage);
             InputStream is = url2.openStream();
             OutputStream os = new FileOutputStream("nasapi/public/images/earthApi.png");

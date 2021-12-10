@@ -30,8 +30,9 @@
     text-align: center;
 }
 .header h1 {
-    font-size: 24px;
+    font-size: 45px;
     color: white;
+    margin: 0px;
 }
 
 
@@ -212,3 +213,13 @@ select::-ms-expand {
 .select:hover::after {
     color: #0b3d91;
 }
+  .strokeme
+{
+    color: white;
+    text-shadow:
+    -2px -2px 0 #000,
+    2px -2px 0 #000,
+    -2px 2px 0 #000,
+    2px 2px 0 #000;  
+}
+

@@ -4,15 +4,21 @@
 <div class="section">
     <div class="container2">
         #{list picURL, as:'pic'}
-            <div class ="gallery">
-                <div class="gallery-header">
-                    <img src="${pic.value}">
-                </div>
-                <div class="gallery-icons">
-                    ${pic.key}
-                    #{a @delete(pic.key)}<img src="@{'/public/images/trash.jpg'}" />#{/a}
-                </div>
+        <div class="gallery">
+            <div class="gallery-header">
+                <img src="${pic.value}">
             </div>
+            <div class="gallery-icons">
+                #{a @delete(pic.key)}
+                <img src="@{'/public/images/trash.jpg'}"
+                    style="padding: 0px; text-align: center; position: absolute;" />
+                #{/a}
+                <div style="text-align: center;">
+                    <h3> ${pic.key} </h3>
+                </div>
+
+            </div>
+        </div>
         #{/list}
     </div>
 </div>

@@ -3,6 +3,7 @@ package controllers;
 import models.User;
 import play.mvc.Before;
 
+import java.io.*;
 import java.util.Objects;
 
 public class Settings extends Application{
@@ -54,18 +55,31 @@ public class Settings extends Application{
         }
     }
 
-    public static void editProfilePic(String uname, String newProfilePic){
+    public static void editProfilePic( String newProfilePic) throws IOException {
         //http://localhost:9000/Application/editProfilePic?uname=a&newPorfilePic=dexter1
-        User u = User.find("byName",uname).first();
+        User u = connected();
         if (u != null) {
             u.profilePic=newProfilePic;
             u.save();
-            renderText("profile pic changed");
+            changeProfilePic(u.profilePic);
+            index();
         }
         else {
-            renderText("User does not exists");
+            flash.error("User does not exists");
+            index();
         }
 
+    }
+    private static void changeProfilePic(String Dexter) throws IOException {
+        InputStream is = new FileInputStream("nasapi/public/images/"+Dexter+".jpg");
+        OutputStream os = new FileOutputStream("nasapi/public/images/dexter.jpg");
+        byte[] b = new byte[2048];
+        int length;
+        while ((length = is.read(b)) != -1) {
+            os.write(b, 0, length);
+        }
+        is.close();
+        os.close();
     }
     public static void changeToUser(String uname){
         User u = User.find("byName", uname).first();

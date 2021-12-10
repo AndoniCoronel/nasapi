@@ -89,6 +89,11 @@ public class Application extends Controller {
         if (u != null) {
             if (u.password.equals(psw)) {
                 session.put("user", u.name);
+                try {
+                    changeProfilePic(u.profilePic);
+                }catch (Exception e){
+                    System.out.println(e);
+                }
                 MainMenu.index();
             } else {
                 flash.error("Incorrect password");
@@ -119,5 +124,16 @@ public class Application extends Controller {
             renderText("User does not exists");
         }
 
+    }
+    private static void changeProfilePic(String Dexter) throws IOException {
+        InputStream is = new FileInputStream("nasapi/public/images/"+Dexter+".jpg");
+        OutputStream os = new FileOutputStream("nasapi/public/images/dexter.jpg");
+        byte[] b = new byte[2048];
+        int length;
+        while ((length = is.read(b)) != -1) {
+            os.write(b, 0, length);
+        }
+        is.close();
+        os.close();
     }
 }

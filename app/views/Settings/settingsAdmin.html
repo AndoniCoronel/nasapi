@@ -3,21 +3,67 @@
 
 <div class="container2">
     <div class="card">
+        <div style=" padding-top: 60px; padding-left: 40px;padding-right: 40px;" >
 
-        <a href="@{deleteUser()}"><button style="background-color:#DF0000">delete</button></a><br>
+        <a href="@{deleteUser()}"><button class="btn donate" style="background-color:#DF0000">delete account</button></a><br>
+        </div>
     </div>
-    <div class ="card">
-        #{form @changeToUser()}
-            #{field 'uname'}
+
+    <div class ="card" style="padding-left: 20px; padding-right: 20px">
+    #{form @editPassword()}
+        <strong>change password:</strong>
+        #{field 'psw'}
+            <p class="${field.errorClass}">
+                Old password: <input type="password" name="psw" size="16" value="${psw}">
+                <span class="error">${field.error}</span>
+            </p>
+        #{/field}
+        #{field 'newPsw'}
+            <p class="${field.errorClass}">
+                new password: <input type="password" name="psw" size="16" value="${newPsw}">
+                <span class="error">${field.error}</span>
+            </p>
+        #{/field}
+        <p class="buttons">
+            <input type="submit" value="Save">
+        </p>
+
+    #{/form}
+    </div>
+
+    <div class ="card" style="padding-left: 20px; padding-right: 20px">
+    #{form @editProfilePic()}
+        #{field 'newProfilePic'}
+            <p class="${field.errorClass}">
+                <div class="select">
+                    <select name="${field.name}" id="dexters">
+                        <option value="dexter1">Happy Dog</option>
+                        <option value="dexter2">Tired Dog</option>
+                        <option value="dexter3">Funky Dog</option>
+                        <option value="dexter4">Spa Dog</option>
+                    </select>
+                    <span class="error">${field.error}</span>
+                </div>
+            </p>
+        #{/field}
+        <p class="buttons">
+            <input type="submit" value="Save">
+        </p>
+
+    #{/form}
+    </div>
+    <div class ="card" style="padding-left: 20px; padding-right: 20px">
+    #{form @changeToUser()}
+        #{field 'uname'}
             <p class="${field.errorClass}">
                 <strong>Change to user:</strong> <input type="text" name="uname" size="16" value="${uname}">
                 <span class="error">${field.error}</span>
             </p>
-            #{/field}
-            <p class="buttons">
+        #{/field}
+        <p class="buttons">
             <input type="submit" value="Save">
-            </p>
+        </p>
 
-        #{/form}
+    #{/form}
     </div>
 </div>

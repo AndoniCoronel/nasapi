@@ -46,19 +46,6 @@ public class Application extends Controller {
         render();
     }
 
-    public static void api1() throws IOException {
-        Api3.index();
-    }
-
-    public static void api2() {
-        Api2.index();
-    }
-
-    public static void api3() {
-        Api3.index();
-
-    }
-
     public static void saveImage(String imageUrl, String destinationFile) throws IOException {
 
     }

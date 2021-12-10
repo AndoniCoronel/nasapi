@@ -1,20 +1,23 @@
 #{extends 'mainStart.html' /}
-#{set title:'Api 2' /}
+#{set title:'Api 1' /}
 
 
 <div class="section">
 
     <div class="card" style="max-height: 80vh; height: auto; width: auto;">
         <div class="card-header">
-            <img id="earthImage" src="@{'/public/images/marsApi.png'}" alt="Mars Image"
-                style="max-height: 70vh; height: auto; width: auto;">
+            <iframe src='https://mars.nasa.gov/layout/embed/image/insightweather/' width='800' height='530'
+                scrolling='no' frameborder='0'></iframe>
         </div>
         <div class="card-body" style="min-height: 0px;">
-            <h3>Curiosity's most recent picture from the front hazard camera</h3>
+            <h3>Latest weather on Mars</h3>
         </div>
     </div>
 
 </div>
+
+
+
 
 
 <div class="section">
@@ -22,7 +25,7 @@
     <div class="footer">
         <h4>Like what you see? Donate!</h4>
 
-        <form method="get" action="@{Api2.donation()}">
+        <form method="get" action="@{Api1.donation()}">
             <fieldset>
                 <select name="quantity">
                     <option value="1">1$</option>

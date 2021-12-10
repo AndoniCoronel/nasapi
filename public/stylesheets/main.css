@@ -11,6 +11,8 @@ button {
 button:hover {
     opacity: 0.8;
 }
+
+
 html {
     height:100%;
     width:100%;
@@ -49,11 +51,16 @@ input{
     border-radius: 10px;
     margin:auto;
     background-color: rgba(255,255,255, 0.8);
-
-}
+    margin-top:15%;
+   }
 
 .error{
     color: red;
     font-family: "Helvetica";
 }
 
+.center{
+    position: absolute;
+    top: 35%;
+    left: 50%;
+}

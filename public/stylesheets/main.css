@@ -11,6 +11,11 @@ button {
 button:hover {
     opacity: 0.8;
 }
+.dogSelect {
+    font-family: "Helvetica";
+    color: #000000;
+    background-color: #b0b0b0;
+}
 
 
 html {
@@ -20,6 +25,7 @@ html {
 }
 label{
     font-family: "Helvetica";
+    font-weight: bold;
 }
 input::placeholder  {
     font-family: "Helvetica";
@@ -45,7 +51,7 @@ input{
     box-sizing: border-box;
 }
 
-.login, .signup{
+.login{
     width: 40%;
     padding: 10px;
     border-radius: 10px;
@@ -53,7 +59,14 @@ input{
     background-color: rgba(255,255,255, 0.8);
     margin-top:15%;
    }
-
+.signup{
+    width: 40%;
+    padding: 10px;
+    border-radius: 10px;
+    margin:auto;
+    background-color: rgba(255,255,255, 0.8);
+    margin-top:3%;
+}
 .error{
     color: red;
     font-family: "Helvetica";
@@ -64,3 +77,4 @@ input{
     top: 35%;
     left: 50%;
 }
+

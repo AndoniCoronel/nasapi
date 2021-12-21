@@ -1,5 +1,6 @@
 package controllers;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import play.data.binding.As;
 import play.data.validation.Valid;
 import play.mvc.*;
@@ -51,6 +52,30 @@ public class Application extends Controller {
     }
 
     public static void imageOfTheDay() {
+        long millis = System.currentTimeMillis();
+        Date date = new Date(millis);
+        Picture picture = Picture.find("byDate",removeTime(date)).first();
+        Boolean find = false;
+
+        if(picture==null){
+            Picture p = new Picture(removeTime(date));
+            p.users.add( connected());
+            p.save();
+            ViewGallery.index();
+        }
+        for(User u :picture.users)
+        {
+            if(u==connected())
+                find = true;
+        }
+        if(find==false){
+            picture.users.add(connected());
+            picture.save();
+            ViewGallery.index();
+        }
+        else{
+            MainMenu.index();
+        }
         // save the image of the day for the current user
     }
 
@@ -58,7 +83,7 @@ public class Application extends Controller {
         // save the data of api 1 for user1
     }
 
-    public static void registered(@Valid User user, String verifyPassword) {
+    public static void registered(@Valid User user, String verifyPassword) throws IOException {
         // validation.required(user.name);
         validation.required(verifyPassword);
         validation.equals(verifyPassword, user.password).message("Your password doesn't match");
@@ -68,6 +93,7 @@ public class Application extends Controller {
         user.create();
         session.put("user", user.name);
         flash.success("Welcome, " + user.name);
+        changeProfilePic(user.profilePic);
         index();
     }
 
@@ -122,5 +148,14 @@ public class Application extends Controller {
         }
         is.close();
         os.close();
+    }
+    public static Date removeTime(Date date) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        return cal.getTime();
     }
 }

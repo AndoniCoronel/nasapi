@@ -36,7 +36,7 @@
     #{/field}
     #{field 'user.profilePic'}
     <p class="${field.errorClass}">
-        <select name="${field.name}" id="dexters">
+        <select class="dogSelect" name="${field.name}" id="dexters">
             <option value="dexter1">Happy Dog</option>
             <option value="dexter2">Tired Dog</option>
             <option value="dexter3">Funky Dog</option>
@@ -46,7 +46,9 @@
     </p>
     #{/field}
     <p class="buttons">
-        <input type="submit" value="Register"> <a href="@{index()}">Cancel</a>
+       <!-- <input class="button" type="submit" value="Register"> --!>
+        <button type="submit">Register</button>
+        <center><a href="@{index()}">Cancel</a></center>
     </p>
     #{/form}
 </div>

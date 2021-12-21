@@ -81,11 +81,12 @@ public class Settings extends Application{
         is.close();
         os.close();
     }
-    public static void changeToUser(String uname){
+    public static void changeToUser(String uname) throws IOException {
         User u = User.find("byName", uname).first();
         if(u!=null) {
             renderArgs.put("user", uname);
             session.put("user",uname);
+            changeProfilePic(u.profilePic);
             MainMenu.index();
         }else{
             flash.error("not a real user");

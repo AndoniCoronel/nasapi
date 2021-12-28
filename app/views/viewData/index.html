@@ -1,0 +1,19 @@
+#{extends 'mainStart.html' /}
+#{set title:'Data' /}
+
+<div class="section">
+    <div class="container2">
+    #{list donations, as:'d'}
+        <div class="gallery" style="width: 200px; text-align: center">
+            <div style="background-color: #0b3d91;">
+                #{if d.apiId==1}<label style="color: #fff">Insight</label>#{/if}
+                #{if d.apiId==2}<label style="color: #fff">Mars Curiosity Rover</label>#{/if}
+                #{if d.apiId==3}<label style="color: #fff">Epic</label>#{/if}
+            </div>
+            <div class="gallery-icons" style="text-align: center">
+                <label>${d.quantity} €</label>
+            </div>
+        </div>
+    #{/list}
+    </div>
+</div>

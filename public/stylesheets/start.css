@@ -180,6 +180,7 @@ select {
     border:0!important;
     background: #8c8e8e;
     background-image: none;
+    text-align: center;
     flex: 1;
     padding: 0 .5em;
     color:#fff;

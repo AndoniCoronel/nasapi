@@ -1,9 +1,18 @@
 package controllers;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import javafx.util.Pair;
+import models.Donation;
+import models.Picture;
 import models.User;
 import play.mvc.Before;
 
 import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Settings extends Application{
@@ -16,19 +25,20 @@ public class Settings extends Application{
         }
     }
 
-    public static void index(){
+    public static void index() {
         User u = connected();
         assert u != null;
-        switch (u.profileLevel){
+        switch (u.profileLevel) {
             case 0:
-                render("@settingsDefault",u);
+                render("@settingsDefault", u);
             case 1:
-                render("@settingsAdmin",u);
+                render("@settingsAdmin", u);
             case 2:
-                render("@settingsCash",u);
+                List<Donation> donations = Donation.findAll();
+                //correct the cash table and make it decent
+                render("@settingsCash", donations);
         }
     }
-
     public static void deleteUser(){
             Objects.requireNonNull(connected()).delete();
             MainMenu.logout();

@@ -1,19 +1,69 @@
-#{extends 'main.html' /}
+#{extends 'mainStart.html' /}
 #{set title:'Login' /}
 
-<h1  style="color:MediumSeaGreen;">Session started, welcome ${user.name}</h1><br>
+<div class="container2">
+    <div class="card">
+        <div style=" padding-top: 60px; padding-left: 40px;padding-right: 40px;" >
 
-<a href="@{deleteUser()}">delete</a><br>
+            <a href="@{deleteUser()}"><button class="btn donate" style="background-color:#DF0000">delete account</button></a><br>
+        </div>
+    </div>
 
-#{form @changeToUser()}
-    #{field 'uname'}
-    <p class="${field.errorClass}">
-        <strong>user:</strong> <input type="text" name="uname" size="16" value="${uname}">
-        <span class="error">${field.error}</span>
-    </p>
-    #{/field}
-    <p class="buttons">
-    <input type="submit" value="Save">
-    </p>
+    <div class ="card" style="padding-left: 20px; padding-right: 20px">
+    #{form @editPassword()}
+        <strong>change password:</strong>
+        #{field 'psw'}
+            <p class="${field.errorClass}">
+                Old password: <input type="password" name="psw" size="16" value="${psw}">
+                <span class="error">${field.error}</span>
+            </p>
+        #{/field}
+        #{field 'newPsw'}
+            <p class="${field.errorClass}">
+                new password: <input type="password" name="psw" size="16" value="${newPsw}">
+                <span class="error">${field.error}</span>
+            </p>
+        #{/field}
+        <p class="buttons">
+            <button type="submit">Save</button>
+        </p>
 
-#{/form}
+    #{/form}
+    </div>
+
+    <div class ="card" style="padding-left: 20px; padding-right: 20px">
+    #{form @editProfilePic()}
+        #{field 'newProfilePic'}
+            <p class="${field.errorClass}">
+            <div class="select">
+                <select class="dogSelect" name="${field.name}" id="dexters">
+                    <option value="dexter1">Happy Dog</option>
+                    <option value="dexter2">Tired Dog</option>
+                    <option value="dexter3">Funky Dog</option>
+                    <option value="dexter4">Spa Dog</option>
+                </select>
+                <span class="error">${field.error}</span>
+            </div>
+            </p>
+        #{/field}
+        <p class="buttons">
+            <button type="submit">Save</button>
+        </p>
+
+    #{/form}
+    </div>
+</div>
+
+<div class="section ">
+    <div class="card container3" style="width: 320px">
+        <div style="display:flex; flex-direction: row; background-color: #0b3d91; color: #ffffff">
+        <h2 style="margin-right: 25px; margin-left: 15px">User</h2><h2 style="margin-right: 15px">API Id</h2><h2 style="margin-right: 15px">Quantity($)</h2>
+        </div>
+    #{list donations, as:'don'}
+                <div style="display:flex; flex-direction: row; margin: auto">
+                    <p style="margin-right: 15px; margin-left: 15px"> ${don.user.name} </p> <p style="margin-right: 15px">#{if don.apiId==1}Insight#{/if}#{if don.apiId==2}MCR#{/if}#{if don.apiId==3}EPIC#{/if} <p style="margin-right: 15px"> ${don.quantity} </p>
+                </div>
+    #{/list}
+    </div>
+    </div>
+</div>

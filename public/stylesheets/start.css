@@ -77,6 +77,11 @@
     flex-wrap: wrap;
   }
 
+.container3 {
+    display: flex;
+    flex-direction: column;
+}
+
   .card .withHover :hover {
     box-shadow: 5px 10px #0b3c9191;
   }

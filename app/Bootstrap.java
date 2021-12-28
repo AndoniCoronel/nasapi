@@ -22,6 +22,8 @@ public class Bootstrap extends Job {
             a.save();
             User b = new User("a", "a", "dexter2", 1, 1);
             b.save();
+            User c = new User("b", "b", "dexter2", 1, 2);
+            c.save();
             new Donation(100, 2, a).save();
             new Donation(150, 3, a).save();
             new Donation(15, 1, b).save();
@@ -55,7 +57,7 @@ public class Bootstrap extends Job {
         String urlImage = data.get("url").getAsString();
         String media_type = data.get("media_type").getAsString();
 
-        if (media_type == "video") {
+        if (Objects.equals(media_type, "video")) {
             urlImage = "https://www.nasa.gov/sites/default/files/thumbnails/image/pia01492-main.jpg";
         }
 

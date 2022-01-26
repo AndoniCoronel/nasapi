@@ -4,13 +4,13 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import models.User;
 
-/**Se trata del controlador encargado de gestinar la comunicacion con el cliente android*/
+/**Se trata del controlador encargado de gestionar la comunicacion con el cliente android*/
 public class Android extends Application{
     /**Es la funcion encargada de realizar el login, se le entran los siguientes parametros:
      * @param uname Es el nombre del usuario
      * @param psw Es la contraseña asociada al usuario
-     * La fubncion verifica si ecxiste un usuario con esa contraseña en la base de datos, si existe permite el login, si no retorna
-     * una rtespuesta negativa. La informacion se envia en formato JSON,
+     * La funcion verifica si existe un usuario con esa contraseña en la base de datos, si existe permite el login, si no retorna
+     * una respuesta negativa. La informacion se envia en formato JSON,
      */
     public void androidLogin(String uname, String psw){
         User u = User.find("byName",uname).first();

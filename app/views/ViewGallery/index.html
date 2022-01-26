@@ -3,7 +3,9 @@
 
 <div class="section">
     <div class="container2">
-        #{list picURL, as:'pic'}
+
+        <!-- uses a list of pairs with all the data we need -->
+    #{list picURL, as:'pic'}
         <div class="gallery">
             <div class="gallery-header">
                 <img src="${pic.value}">

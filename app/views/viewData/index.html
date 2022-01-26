@@ -6,6 +6,8 @@
     #{list donations, as:'d'}
         <div class="gallery" style="width: 200px; text-align: center">
             <div style="background-color: #0b3d91;">
+
+                <!-- this translate the int value used in our database -->
                 #{if d.apiId==1}<label style="color: #fff">Insight</label>#{/if}
                 #{if d.apiId==2}<label style="color: #fff">Mars Curiosity Rover</label>#{/if}
                 #{if d.apiId==3}<label style="color: #fff">Epic</label>#{/if}

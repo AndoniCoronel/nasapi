@@ -1,6 +1,18 @@
 #{extends 'mainStart.html' /}
 #{set title:'Login' /}
+<div style="text-align: center">
+#{if flash.error}
+    <p class="error">
+        <strong>${flash.error}</strong>
+    </p>
+#{/if}
+#{if flash.success}
+    <p class="success">
+        <strong>${flash.success}</strong>
+    </p>
 
+#{/if}
+</div>
 <div class="container2">
     <div class="card">
         <div style=" padding-top: 60px; padding-left: 40px;padding-right: 40px;" >

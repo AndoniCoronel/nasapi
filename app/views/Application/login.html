@@ -9,11 +9,12 @@
         <label for="psw"><b>Password</b></label>
         <input type="password" placeholder="Enter Password" name="psw" required>
         #{if flash.error}
-        <p style="color:#c00">
+        <p class="error">
             ${flash.error}
         </p>
-        <a href="@{Application.signup()}">Sign Up</a>
         #{/if}
         <button type="submit">Login</button>
     </div>
+    <a href="@{index()}"><button>Cancel</button></a>
+
 </form>

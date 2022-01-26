@@ -11,7 +11,7 @@ import java.util.*;
 
 import models.*;
 
-/**El controlador applicaiton es el controlador por defecto de Play y en el que mayor numero de funciones implementamos */
+/**El controlador application es el controlador por defecto de Play y en el que mayor numero de funciones implementamos */
 public class Application extends Controller {
 
     @Before

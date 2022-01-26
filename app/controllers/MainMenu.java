@@ -2,7 +2,7 @@ package controllers;
 
 import play.mvc.Before;
 
-/**El controlador Mainmanu es el encargado de gestinar el menu una vez iniciada sesion */
+/**El controlador Main menu es el encargado de gestionar el menu una vez iniciada sesion */
 public class MainMenu extends Application {
 
     @Before

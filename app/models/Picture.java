@@ -10,6 +10,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+
+/**
+ * Una foto contiene una lista de usuarios que tienen guardada la foto y una fecha asignada a esa imagen
+ */
 @Entity
 public class Picture extends Model {
 

@@ -3,18 +3,31 @@
 # ~~~~
 
 # Home page
-GET     /                                       Application.index
+GET     /                                           Application.index
 
 # Ignore favicon requests
-GET     /favicon.ico                            404
+GET     /favicon.ico                                404
 
 # Map static resources from the /app/public folder to the /public path
-GET     /public/                                staticDir:public
+GET     /public/                                    staticDir:public
 
-GET     /login                                  Application.login
+GET     /login                                      Application.login
 
-GET     /signup                                  Application.signup
+GET     /mainmenu                                   MainMenu.index
 
+GET     /signup                                     Application.signup
+
+GET     /insight                                    Api1.index
+
+GET     /curiosity                                  Api2.index
+
+GET     /epic                                       Api3.index
+
+GET     /settings                                   Settings.index
+
+GET     /viewdata                                   ViewData.index
+
+GET     /viewgallery                                ViewGallery.index
 
 # Catch all
-*       /{controller}/{action}                  {controller}.{action}
+*       /{controller}/{action}                     {controller}.{action}

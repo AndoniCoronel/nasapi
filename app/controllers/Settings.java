@@ -66,15 +66,19 @@ public class Settings extends Application{
             {
                 u.password=newPsw;
                 u.save();
-                renderText("password changed");
+                index();
 
             }
             else{
-                renderText("Incorrect password");
+                flash.error("not correct password");
+                index();
+
             }
         }
         else {
-            renderText("User does not exists");
+            flash.error("User does not exists");
+            index();
+
 
         }
     }
@@ -128,6 +132,7 @@ public class Settings extends Application{
             renderArgs.put("user", uname);
             session.put("user",uname);
             changeProfilePic(u.profilePic);
+            flash.success("changed to the user");
             MainMenu.index();
         }else{
             flash.error("not a real user");

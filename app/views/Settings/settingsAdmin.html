@@ -1,6 +1,20 @@
 #{extends 'mainStart.html' /}
 #{set title:'Settings' /}
 
+
+<div style="text-align: center">
+#{if flash.error}
+<p class="error">
+    <strong>${flash.error}</strong>
+</p>
+#{/if}
+#{if flash.success}
+<p class="success">
+    <strong>${flash.success}</strong>
+</p>
+
+#{/if}
+</div>
 <div class="container2">
     <div class="card">
         <div style=" padding-top: 60px; padding-left: 40px;padding-right: 40px;" >
@@ -13,16 +27,12 @@
     #{form @editPassword()}
         <strong>change password:</strong>
         #{field 'psw'}
-            <p class="${field.errorClass}">
-                Old password: <input type="password" name="psw" size="16" value="${psw}">
-                <span class="error">${field.error}</span>
-            </p>
+            <label>Old password:</label>
+            <input type="password" name="${field.name}" size="16" value="${psw}">
         #{/field}
         #{field 'newPsw'}
-            <p class="${field.errorClass}">
-                new password: <input type="password" name="psw" size="16" value="${newPsw}">
-                <span class="error">${field.error}</span>
-            </p>
+            <label>new password:</label>
+            <input type="password" name="${field.name}" size="16" value="${newPsw}">
         #{/field}
         <p class="buttons">
             <input type="submit" value="Save">
@@ -46,6 +56,7 @@
                 </div>
             </p>
         #{/field}
+
         <p class="buttons">
             <input type="submit" value="Save">
         </p>

@@ -1,21 +1,21 @@
 button {
-    background-color: #0b3d91;
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    cursor: pointer;
-    width: 100%;
-    font-family: "Helvetica";
-}
-button:hover {
-    opacity: 0.8;
-}
-.dogSelect {
-    font-family: "Helvetica";
-    color: #000000;
-    background-color: #b0b0b0;
-}
+        background-color: #0b3d91;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+        font-family: "Helvetica";
+    }
+    button:hover {
+        opacity: 0.8;
+    }
+    .dogSelect {
+        font-family: "Helvetica";
+        color: #000000;
+        background-color: #b0b0b0;
+    }
 
 
 html {

@@ -9,6 +9,9 @@ import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Una donación es una clase que asigna a un usuario y una api una cantidad de dinero
+ */
 @Entity
 public class Donation extends Model {
 

@@ -1,12 +1,12 @@
 package models;
 
-import net.bytebuddy.implementation.bind.annotation.Default;
 import play.data.validation.*;
 import play.db.jpa.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+
 
 @Entity
 public class User extends Model {
@@ -39,8 +39,7 @@ public class User extends Model {
     public List<Donation> donations = new ArrayList<>();
     @ManyToMany (mappedBy = "users", cascade=CascadeType.ALL)
     public List<Picture> pictures = new ArrayList<>();
-    @ManyToMany (mappedBy = "users", cascade=CascadeType.ALL)
-    public List<Api> apis = new ArrayList<>();
+
 
 
 

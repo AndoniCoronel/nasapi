@@ -39,6 +39,7 @@ public class Settings extends Application{
                 render("@settingsAdmin", u);
             case 2:
                 List<Donation> donations = Donation.findAll();
+                //correct the cash table and make it decent
                 render("@settingsCash", donations);
         }
     }

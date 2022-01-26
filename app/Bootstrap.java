@@ -27,6 +27,8 @@ public class Bootstrap extends Job {
             new Donation(100, 2, a).save();
             new Donation(150, 3, a).save();
             new Donation(15, 1, b).save();
+            new Donation(152, 2, b).save();
+            new Donation(151, 3, b).save();
             new Api(1, "blabla").save();
             long millis = System.currentTimeMillis();
             Date date = new Date(millis - 86400000);

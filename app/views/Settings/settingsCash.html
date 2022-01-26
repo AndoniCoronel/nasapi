@@ -61,7 +61,7 @@
         </div>
     #{list donations, as:'don'}
                 <div style="display:flex; flex-direction: row; margin: auto">
-                    <p style="margin-right: 15px; margin-left: 15px"> ${don.user.name} </p> <p style="margin-right: 15px">${don.apiId}</p> <p style="margin-right: 15px"> ${don.quantity} </p>
+                    <p style="margin-right: 15px; margin-left: 15px"> ${don.user.name} </p> <p style="margin-right: 15px">#{if don.apiId==1}Insight#{/if}#{if don.apiId==2}MCR#{/if}#{if don.apiId==3}EPIC#{/if} <p style="margin-right: 15px"> ${don.quantity} </p>
                 </div>
     #{/list}
     </div>

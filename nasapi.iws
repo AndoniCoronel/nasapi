@@ -5,12 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7bea3fd2-6ef9-41e9-a329-80d0de686838" name="Changes" comment="added the common functions">
-      <change beforePath="$PROJECT_DIR$/app/Bootstrap.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/Bootstrap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controllers/Android.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/Android.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controllers/Api1.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/Api1.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controllers/Api2.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/Api2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controllers/Api3.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/Api3.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controllers/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/Application.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controllers/MainMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/MainMenu.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/controllers/Settings.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/Settings.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/views/Settings/settingsCash.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/Settings/settingsCash.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controllers/ViewData.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/ViewData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controllers/ViewEconomy.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/ViewEconomy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controllers/ViewGallery.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/ViewGallery.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nasapi.iws" beforeDir="false" afterPath="$PROJECT_DIR$/nasapi.iws" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/backgroundImage.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/backgroundImage.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/stylesheets/start.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/stylesheets/start.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -111,7 +116,12 @@
       <workItem from="1639332512407" duration="3128000" />
       <workItem from="1639393941167" duration="3871000" />
       <workItem from="1640081549974" duration="8099000" />
-      <workItem from="1640716144222" duration="4028000" />
+      <workItem from="1640716144222" duration="4277000" />
+      <workItem from="1642758484871" duration="256000" />
+      <workItem from="1643222340297" duration="30000" />
+      <workItem from="1643222413702" duration="3370000" />
+      <workItem from="1643225820562" duration="1957000" />
+      <workItem from="1643227806518" duration="3000" />
     </task>
     <task id="LOCAL-00001" summary="minor changes">
       <created>1634489396958</created>
@@ -179,16 +189,5 @@
     <MESSAGE value="minor changes" />
     <MESSAGE value="added the common functions" />
     <option name="LAST_COMMIT_MESSAGE" value="added the common functions" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/controllers/ViewGallery.java</url>
-          <line>48</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

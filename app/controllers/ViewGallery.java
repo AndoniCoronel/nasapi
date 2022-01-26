@@ -16,7 +16,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
+/**El controlador ViewGallery es el encargado de gestionar la vision de las imagenes realizadas por el usuario conectado */
 public class ViewGallery extends Application{
     @Before
     static void checkUser() {
@@ -26,6 +26,9 @@ public class ViewGallery extends Application{
         }
     }
 
+    /**
+     * La funcion se encarga de descargar las imagenes que tiene guardadas el usuario
+     */
     public static void index(){
         List<Picture> pictures = connected().pictures;
         List<Pair<String, String>> picURL = new ArrayList<>();
@@ -64,6 +67,10 @@ public class ViewGallery extends Application{
         render(picURL);
     }
 
+    /**
+     * Esta funcion elimina la relacion de la imagen de los registros de la base de datos. Tiene la siguiente entrada
+     * @param date Fecha de la imagen
+     */
     public static void delete( @As("yyyy-MM-dd") Date date){
         Picture picture = Picture.find("byDate",date).first();
         picture.users.remove(connected());

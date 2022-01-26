@@ -12,10 +12,13 @@ import models.Donation;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
-
+/**Se trata del controlador encargado de gestinar la API2*/
 public class Api2 extends Application {
+    /**
+     * La foncion index se encarga de extraer la imagen de la API y guardarla en la carpeta de imagenes con el idnetificador marsApi.png
+     * por ultimo manda el fichero HTML index.html asociado a la API2 al cliente web
+     */
     public static void index() {
-        // https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=2021-12-05&camera=fhaz&api_key=DEMO_KEY
         try {
             LocalDate today = LocalDate.now();
             String yesterdayDate = (today.minusDays(1)).format(DateTimeFormatter.ISO_DATE);
@@ -57,8 +60,13 @@ public class Api2 extends Application {
         }
         render();
     }
+    /**
+     * Es la funcion encargada de gestionar las donaciones. Tiene como entrada el siguiente parametro:
+     * @param quantity La cantidad que se desea donar
+     * Se crea una donacion a cargo del usuario conectado y se guarda en la base de datos
+     */
     public static void donation(float quantity){
-        Donation donation = new Donation(quantity,3,connected());
+        Donation donation = new Donation(quantity,2,connected());
         donation.save();
         index();
 

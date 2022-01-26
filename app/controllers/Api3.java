@@ -7,8 +7,12 @@ import models.Donation;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
-
+/**Se trata del controlador encargado de gestinar la API3*/
 public class Api3 extends Application {
+    /**
+     * La foncion index se encarga de extraer la imagen de la API y guardarla en la carpeta de imagenes con el idnetificador earthApi.png
+     * por ultimo manda el fichero HTML index.html asociado a la API3 al cliente web
+     */
     public static void index() {
         try {
             URL url = new URL("https://epic.gsfc.nasa.gov/api/natural");
@@ -54,6 +58,11 @@ public class Api3 extends Application {
         }
         render();
     }
+    /**
+     * Es la funcion encargada de gestionar las donaciones. Tiene como entrada el siguiente parametro:
+     * @param quantity La cantidad que se desea donar
+     * Se crea una donacion a cargo del usuario conectado y se guarda en la base de datos
+     */
     public static void donation(float quantity){
         Donation donation = new Donation(quantity,3,connected());
         donation.save();

@@ -2,6 +2,7 @@ package controllers;
 
 import play.mvc.Before;
 
+/**El controlador Mainmanu es el encargado de gestinar el menu una vez iniciada sesion */
 public class MainMenu extends Application {
 
     @Before
@@ -11,7 +12,9 @@ public class MainMenu extends Application {
             Application.index();
         }
     }
-
+    /**
+     * Manda el fichero index.html asociado al controlador MainMenu al cliente web
+     */
     public static void index(){
         render(connected());
     }
@@ -25,6 +28,9 @@ public class MainMenu extends Application {
     public static void onclickViewData(){
         ViewData.index();
     }
+    /**
+     * Cierra la sesion y nos retorna a la pagina de inicio (index.html del controlador Application) para el login o registro
+     */
     public static void logout() {
         session.clear();
         Application.index();
